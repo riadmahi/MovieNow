@@ -18,7 +18,6 @@ fun MovieNowTheme(
     darkTheme: Boolean = true,
     content: @Composable() () -> Unit
 ) {
-
     val colors = Colors(
         primary = Color(0xFFFF28A2),
         primaryVariant = Color(0xFFFF28A2),
@@ -50,7 +49,7 @@ fun MovieNowTheme(
 
     MaterialTheme(
         colors = colors,
-        typography = typography,
+        typography = BrSonomaTypography(),
         shapes = shapes,
         content = content
     )
