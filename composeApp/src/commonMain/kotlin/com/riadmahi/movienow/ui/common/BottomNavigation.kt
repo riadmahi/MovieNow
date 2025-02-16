@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.riadmahi.movienow.MovieNowBottomNavigation
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieNowBottomNavigationBar(navController: NavController) {
@@ -35,7 +36,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
                 },
                 label = {
                     Text(
-                        text = tab.title,
+                        text = stringResource(tab.title),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Medium,
                         color = if (isSelected) MaterialTheme.colors.onPrimary else Color.Gray

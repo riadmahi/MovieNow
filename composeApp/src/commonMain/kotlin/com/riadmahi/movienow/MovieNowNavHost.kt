@@ -17,11 +17,14 @@ import com.riadmahi.movienow.ui.common.MovieNowBottomNavigationBar
 import com.riadmahi.movienow.ui.main.explore.ExploreScreen
 import com.riadmahi.movienow.ui.main.explore.ProfileScreen
 import com.riadmahi.movienow.ui.main.explore.SearchScreen
+import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_explore
 import movienow.composeapp.generated.resources.ic_profile
 import movienow.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieNowNavHost(navController: NavHostController) {
@@ -84,8 +87,8 @@ private val NavController.shouldShowBottomBar
         else -> false
     }
 
-sealed class MovieNowBottomNavigation(val route: String, val title: String, val icon: DrawableResource) {
-    data object Explore : MovieNowBottomNavigation(route = "explore", title = "Explore", icon = Res.drawable.ic_explore)
-    data object Search : MovieNowBottomNavigation(route = "search", title = "Search", icon = Res.drawable.ic_search)
-    data object Profile : MovieNowBottomNavigation(route = "profile", title = "Profile", icon = Res.drawable.ic_profile)
+sealed class MovieNowBottomNavigation(val route: String, val title: StringResource, val icon: DrawableResource) {
+    data object Explore : MovieNowBottomNavigation(route = "explore", title = Res.string.explore, icon = Res.drawable.ic_explore)
+    data object Search : MovieNowBottomNavigation(route = "search", title =  Res.string.search, icon = Res.drawable.ic_search)
+    data object Profile : MovieNowBottomNavigation(route = "profile", title =  Res.string.profile, icon = Res.drawable.ic_profile)
 }
