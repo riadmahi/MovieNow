@@ -18,7 +18,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
         listOf(MovieNowBottomNavigation.Explore, MovieNowBottomNavigation.Search, MovieNowBottomNavigation.Profile)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     
-    BottomNavigation(backgroundColor = Color.White, elevation = 0.dp) {
+    BottomNavigation(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {
         tabs.forEach { tab ->
             val isSelected = currentRoute == tab.route
             BottomNavigationItem(
@@ -27,7 +27,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
                         painter = painterResource(tab.icon),
                         contentDescription = tab.icon.toString(),
                         colorFilter = if (isSelected) {
-                            ColorFilter.tint(Color.Black)
+                            ColorFilter.tint(MaterialTheme.colors.onPrimary)
                         } else {
                             ColorFilter.tint(Color.Gray)
                         }
@@ -38,7 +38,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
                         text = tab.title,
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.Medium,
-                        color = if (isSelected) Color.Black else Color.Gray
+                        color = if (isSelected) MaterialTheme.colors.onPrimary else Color.Gray
                     )
                 },
                 onClick = {
