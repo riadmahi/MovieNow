@@ -1,6 +1,5 @@
 package com.riadmahi.movienow
 
-import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.navigation.compose.rememberNavController
 import com.riadmahi.movienow.ui.theme.MovieNowTheme
