@@ -65,8 +65,11 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.encoding)
             implementation(libs.ktor.client.logging)
+            implementation(libs.coil.mp)
             implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.network.ktor2)
+            implementation(libs.coil.network.ktor3)
         }
 
         iosMain.dependencies {
