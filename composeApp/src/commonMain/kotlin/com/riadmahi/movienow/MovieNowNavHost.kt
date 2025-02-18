@@ -8,13 +8,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.ui.common.MovieNowBottomNavigationBar
 import com.riadmahi.movienow.ui.main.explore.ExploreScreen
+import com.riadmahi.movienow.ui.main.explore.ExploreViewModel
 import com.riadmahi.movienow.ui.main.explore.ProfileScreen
 import com.riadmahi.movienow.ui.main.explore.SearchScreen
 import movienow.composeapp.generated.resources.*
@@ -27,7 +30,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun MovieNowNavHost(navController: NavHostController) {
+fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepository) {
     val backStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(
         bottomBar = { MovieNowBottomNavigationBar(navController) }
@@ -63,7 +66,8 @@ fun MovieNowNavHost(navController: NavHostController) {
                 )
             }) {
             composable(route = MovieNowBottomNavigation.Explore.route) {
-                ExploreScreen()
+                val viewModel = viewModel<ExploreViewModel> { ExploreViewModel(movieRepository) }
+                ExploreScreen(viewModel)
             }
 
             composable(route = MovieNowBottomNavigation.Search.route) {
