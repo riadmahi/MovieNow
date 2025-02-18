@@ -18,6 +18,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.buildKonfig)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
