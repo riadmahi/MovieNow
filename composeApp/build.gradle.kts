@@ -70,6 +70,7 @@ kotlin {
             implementation(libs.coil.compose.core)
             implementation(libs.coil.network.ktor2)
             implementation(libs.coil.network.ktor3)
+            implementation(libs.kotlinx.datetime)
         }
 
         iosMain.dependencies {
