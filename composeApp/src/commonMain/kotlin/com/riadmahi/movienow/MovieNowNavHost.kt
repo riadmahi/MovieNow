@@ -2,18 +2,15 @@ package com.riadmahi.movienow
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.ui.common.MovieNowBottomNavigationBar
 import com.riadmahi.movienow.ui.main.explore.ExploreScreen
@@ -27,11 +24,9 @@ import movienow.composeapp.generated.resources.ic_profile
 import movienow.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepository) {
-    val backStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(
         bottomBar = { MovieNowBottomNavigationBar(navController) }
     ) { innerPadding ->
@@ -40,7 +35,8 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             startDestination = MovieNowBottomNavigation.Explore.route,
             modifier = Modifier
                     .fillMaxSize()
-                    .padding(innerPadding),
+                    .padding(innerPadding)
+                    .safeDrawingPadding(),
             enterTransition = {
                 slideIntoContainer(
                     AnimatedContentTransitionScope.SlideDirection.Left,

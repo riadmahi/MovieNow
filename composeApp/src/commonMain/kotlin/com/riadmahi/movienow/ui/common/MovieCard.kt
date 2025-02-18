@@ -23,7 +23,6 @@ fun MovieCard(
     cardSize: CardSize = CardSize.Medium,
     textAlign: TextAlign = TextAlign.Center
 ) {
-    println(movie.posterPath)
     Column {
         Card(
             modifier = Modifier.size(cardSize.width, cardSize.height),
