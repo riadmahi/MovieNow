@@ -9,9 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.ui.common.MovieNowBottomNavigationBar
 import com.riadmahi.movienow.ui.main.explore.ExploreScreen
@@ -29,6 +31,7 @@ import org.jetbrains.compose.resources.StringResource
 
 @Composable
 fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepository) {
+    val navBackStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(
         bottomBar = { if(navController.shouldShowBottomBar) MovieNowBottomNavigationBar(navController) }
     ) { innerPadding ->
@@ -65,7 +68,12 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             }) {
             composable(route = MovieNowBottomNavigation.Explore.route) {
                 val viewModel = viewModel<ExploreViewModel> { ExploreViewModel(movieRepository) }
-                ExploreScreen(viewModel)
+                ExploreScreen(
+                    viewModel = viewModel,
+                    onNavigateToMovieDetails = { movie ->
+                        navController.navigate("${MovieNowDestination.MovieDetails}/${movie.id}")
+                    }
+                )
             }
 
             composable(route = MovieNowBottomNavigation.Search.route) {
@@ -76,7 +84,11 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 ProfileScreen()
             }
 
-            composable(route = MovieNowDestination.MovieDetails.route) {
+            composable(
+                route = MovieNowDestination.MovieDetails.route,
+                listOf(navArgument("movieId") { type = NavType.IntType })
+            ) {
+                val id = navBackStackEntry.value?.arguments?.getInt("movieId")
                 MovieDetailsScreen()
             }
         }

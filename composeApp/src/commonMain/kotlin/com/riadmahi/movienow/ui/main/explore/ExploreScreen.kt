@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.CardSize
 import com.riadmahi.movienow.ui.common.MovieRow
 import movienow.composeapp.generated.resources.Res
@@ -19,7 +20,10 @@ import movienow.composeapp.generated.resources.movie_section_upcoming
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ExploreScreen(viewModel: ExploreViewModel) {
+fun ExploreScreen(
+    viewModel: ExploreViewModel,
+    onNavigateToMovieDetails: (Movie) -> Unit,
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (uiState is ExploreUiState.Content) {
@@ -34,7 +38,8 @@ fun ExploreScreen(viewModel: ExploreViewModel) {
             item {
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).nowPlayingMovies,
-                    title = stringResource(Res.string.movie_section_now_playing)
+                    title = stringResource(Res.string.movie_section_now_playing),
+                    onMovieClick = { onNavigateToMovieDetails(it) }
                 )
             }
 
@@ -53,13 +58,15 @@ fun MovieSection(
     state: ExploreUiState.MovieListState,
     title: String,
     cardSize: CardSize = CardSize.Small,
+    onMovieClick: (Movie) -> Unit = {}
 ) {
     when (state) {
         is ExploreUiState.MovieListState.Success -> {
             MovieRow(
                 title = title,
                 movies = state.movies,
-                cardSize = cardSize
+                cardSize = cardSize,
+                onMovieClick = { onMovieClick(it) }
             )
         }
         is ExploreUiState.MovieListState.Loading -> {

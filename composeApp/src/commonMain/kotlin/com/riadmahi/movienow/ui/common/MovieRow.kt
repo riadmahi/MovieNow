@@ -25,7 +25,8 @@ fun MovieRow(
     movies: List<Movie>,
     cardSize: CardSize = CardSize.Medium,
     showTitle: Boolean = false,
-    showDescription: Boolean = false
+    showDescription: Boolean = false,
+    onMovieClick: (Movie) -> Unit = { }
 ) {
     Column {
         Row(
@@ -63,7 +64,13 @@ fun MovieRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(movies) { movie ->
-                MovieCard(movie = movie, cardSize = cardSize, showTitle = showTitle, showDescription = showDescription)
+                MovieCard(
+                    movie = movie,
+                    cardSize = cardSize,
+                    showTitle = showTitle,
+                    showDescription = showDescription,
+                    onClick = { onMovieClick(movie) }
+                )
             }
         }
     }
