@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.riadmahi.movienow.ui.common.CardSize
 import com.riadmahi.movienow.ui.common.MovieRow
 
 @Composable
@@ -13,7 +14,8 @@ fun ExploreScreen(viewModel: ExploreViewModel) {
     if (uiState is ExploreUiState.Content) {
         when (val popularState = (uiState as ExploreUiState.Content).popularMovies) {
             is ExploreUiState.PopularMovieState.Success -> {
-                MovieRow(title = "Popular", popularState.movies)
+                MovieRow(
+                    title = "Popular", movies = popularState.movies, cardSize = CardSize.Small)
             }
             is ExploreUiState.PopularMovieState.Loading -> {
                 CircularProgressIndicator()

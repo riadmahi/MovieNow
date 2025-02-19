@@ -23,7 +23,9 @@ import org.jetbrains.compose.resources.painterResource
 fun MovieRow(
     title: String,
     movies: List<Movie>,
-    cardSize: CardSize = CardSize.Medium
+    cardSize: CardSize = CardSize.Medium,
+    showTitle: Boolean = false,
+    showDescription: Boolean = false
 ) {
     Column {
         Row(
@@ -41,7 +43,7 @@ fun MovieRow(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text ="MORE",
+                    text = "MORE",
                     fontWeight = FontWeight.Normal,
                     fontSize = 13.sp,
                     color = Color.Gray,
@@ -58,9 +60,10 @@ fun MovieRow(
 
         LazyRow(
             contentPadding = PaddingValues(horizontal = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             items(movies) { movie ->
-                MovieCard(movie = movie, cardSize = cardSize)
+                MovieCard(movie = movie, cardSize = cardSize, showTitle = showTitle, showDescription = showDescription)
             }
         }
     }
