@@ -8,10 +8,27 @@ import io.ktor.client.request.*
 
 class MovieApi {
 
-    suspend fun getTopRatedMovie(): Resource<MoviePageResponse> {
+    suspend fun getPopularMovie(): Resource<MoviePageResponse> {
         try {
             val response = client.get {
                 url("movie/popular?language=en-US&page=1")
+            }
+            return Resource.Success(response.body())
+        } catch (e: RedirectResponseException) {
+            return (Resource.Error(e.response.status.description))
+        } catch (e: ClientRequestException) {
+            return (Resource.Error(e.response.status.description))
+        } catch (e: ServerResponseException) {
+            return (Resource.Error(e.response.status.description))
+        } catch (e: Exception) {
+            return (Resource.Error(e.message ?: "Something went wrong"))
+        }
+    }
+
+    suspend fun getNowPlayingMovie(): Resource<MoviePageResponse> {
+        try {
+            val response = client.get {
+                url("movie/now_playing?language=en-US&page=1")
             }
             return Resource.Success(response.body())
         } catch (e: RedirectResponseException) {

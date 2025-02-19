@@ -10,8 +10,13 @@ import kotlinx.coroutines.flow.flowOn
 
 
 class MovieRepository(private val api: MovieApi) {
-    fun getTopRatedMovieList(): Flow<Resource<MoviePageResponse>> = flow {
+    fun getPopularMovieList(): Flow<Resource<MoviePageResponse>> = flow {
         emit(Resource.Loading)
-        emit(api.getTopRatedMovie())
+        emit(api.getPopularMovie())
+    }.flowOn(Dispatchers.IO)
+
+    fun getNowPlayingMovieList(): Flow<Resource<MoviePageResponse>> = flow {
+        emit(Resource.Loading)
+        emit(api.getNowPlayingMovie())
     }.flowOn(Dispatchers.IO)
 }
