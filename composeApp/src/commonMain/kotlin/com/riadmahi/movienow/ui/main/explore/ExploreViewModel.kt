@@ -6,6 +6,7 @@ import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class ExploreViewModel(private val movieRepository: MovieRepository) : ViewModel() {
@@ -14,32 +15,33 @@ class ExploreViewModel(private val movieRepository: MovieRepository) : ViewModel
     val uiState: StateFlow<ExploreUiState> = _uiState
 
     init {
-        fetchTopRatedMovie()
+        fetchMovies()
     }
 
-    private fun fetchTopRatedMovie() {
+    private fun fetchMovies() {
         viewModelScope.launch {
-            movieRepository.getTopRatedMovieList().collect { resource ->
-                when (resource) {
-                    is Resource.Error -> {
-                        _uiState.value = ExploreUiState.Content(
-                            popularMovies = ExploreUiState.PopularMovieState.Error(
-                                resource.error ?: "Unknown error"
-                            )
-                        )
-                    }
-
-                    is Resource.Loading -> {
-                        _uiState.value =
-                            ExploreUiState.Content(popularMovies = ExploreUiState.PopularMovieState.Loading)
-                    }
-
-                    is Resource.Success -> {
-                        _uiState.value = ExploreUiState.Content(
-                            popularMovies = ExploreUiState.PopularMovieState.Success(movies = resource.data.results)
-                        )
-                    }
+            combine(
+                movieRepository.getPopularMovieList(),
+                movieRepository.getNowPlayingMovieList()
+            ) { popularResource, nowPlayingResource ->
+                val popularMoviesState = when (popularResource) {
+                    is Resource.Loading -> ExploreUiState.MovieListState.Loading
+                    is Resource.Success -> ExploreUiState.MovieListState.Success(movies = popularResource.data.results)
+                    is Resource.Error -> ExploreUiState.MovieListState.Error(popularResource.error ?: "Unknown error")
                 }
+
+                val nowPlayingMoviesState = when (nowPlayingResource) {
+                    is Resource.Loading -> ExploreUiState.MovieListState.Loading
+                    is Resource.Success -> ExploreUiState.MovieListState.Success(movies = nowPlayingResource.data.results)
+                    is Resource.Error -> ExploreUiState.MovieListState.Error(nowPlayingResource.error ?: "Unknown error")
+                }
+
+                ExploreUiState.Content(
+                    popularMovies = popularMoviesState,
+                    nowPlayingMovies = nowPlayingMoviesState
+                )
+            }.collect { combinedContentState ->
+                _uiState.value = combinedContentState
             }
         }
     }
