@@ -76,11 +76,6 @@ fun MovieCard(
 sealed class CardSize(val width: Dp, val height: Dp, val fontSize: TextUnit) {
     data object Small : CardSize(width = 120.dp, height = 180.dp, fontSize = 14.sp)
     data object Medium : CardSize(width = 180.dp, height = 270.dp, fontSize = 18.sp)
-    data object Large : CardSize(width = 240.dp, height = 360.dp, fontSize = 22.sp)
+    data object Large : CardSize(width = 240.dp, height = 360.dp, fontSize = 20.sp)
 }
 
-/*
-@Preview
-@Composable
-fun MovieCardPreview() = MovieCard()
-*/
