@@ -13,55 +13,61 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.ui.common.CardSize
 import com.riadmahi.movienow.ui.common.MovieRow
 import movienow.composeapp.generated.resources.Res
-import movienow.composeapp.generated.resources.movie_now_playing
+import movienow.composeapp.generated.resources.movie_section_now_playing
 import movienow.composeapp.generated.resources.movie_section_popular
+import movienow.composeapp.generated.resources.movie_section_upcoming
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExploreScreen(viewModel: ExploreViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-
         if (uiState is ExploreUiState.Content) {
             item {
-                when (val popularState = (uiState as ExploreUiState.Content).popularMovies) {
-                    is ExploreUiState.MovieListState.Success -> {
-                        MovieRow(
-                            title = stringResource(Res.string.movie_section_popular),
-                            movies = popularState.movies,
-                            cardSize = CardSize.Medium
-                        )
-                    }
-
-                    is ExploreUiState.MovieListState.Loading -> {
-                        CircularProgressIndicator(modifier = Modifier.size(50.dp))
-                    }
-
-                    is ExploreUiState.MovieListState.Error -> {
-                        Text("Error: ${popularState.errorMessage}")
-                    }
-                }
+                MovieSection(
+                    state = (uiState as ExploreUiState.Content).popularMovies,
+                    title = stringResource(Res.string.movie_section_popular),
+                    cardSize = CardSize.Medium
+                )
             }
 
             item {
-                when (val nowPlayingState = (uiState as ExploreUiState.Content).nowPlayingMovies) {
-                    is ExploreUiState.MovieListState.Success -> {
-                        MovieRow(
-                            title = stringResource(Res.string.movie_now_playing),
-                            movies = nowPlayingState.movies,
-                            cardSize = CardSize.Small
-                        )
-                    }
-
-                    is ExploreUiState.MovieListState.Loading -> {
-                        CircularProgressIndicator(modifier = Modifier.size(50.dp))
-                    }
-
-                    is ExploreUiState.MovieListState.Error -> {
-                        Text("Error: ${nowPlayingState.errorMessage}")
-                    }
-                }
+                MovieSection(
+                    state = (uiState as ExploreUiState.Content).nowPlayingMovies,
+                    title = stringResource(Res.string.movie_section_now_playing)
+                )
             }
+
+            item {
+                MovieSection(
+                    state = (uiState as ExploreUiState.Content).upcomingMovies,
+                    title = stringResource(Res.string.movie_section_upcoming)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MovieSection(
+    state: ExploreUiState.MovieListState,
+    title: String,
+    cardSize: CardSize = CardSize.Small,
+) {
+    when (state) {
+        is ExploreUiState.MovieListState.Success -> {
+            MovieRow(
+                title = title,
+                movies = state.movies,
+                cardSize = cardSize
+            )
+        }
+        is ExploreUiState.MovieListState.Loading -> {
+            // Vous pouvez personnaliser le modifier selon vos besoins
+            CircularProgressIndicator(modifier = Modifier.size(50.dp))
+        }
+        is ExploreUiState.MovieListState.Error -> {
+            Text(text = "Error: ${state.errorMessage}")
         }
     }
 }

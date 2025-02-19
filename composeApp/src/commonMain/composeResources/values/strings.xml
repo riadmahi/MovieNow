@@ -3,5 +3,6 @@
     <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="movie_section_popular">Popular</string>
-    <string name="movie_now_playing">Now playing</string>
+    <string name="movie_section_now_playing">Now playing</string>
+    <string name="movie_section_upcoming">Upcoming</string>
 </resources>
