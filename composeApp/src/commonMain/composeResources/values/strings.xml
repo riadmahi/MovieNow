@@ -2,4 +2,6 @@
     <string name="explore">Explore</string>
     <string name="search">Search</string>
     <string name="profile">Profile</string>
+    <string name="movie_section_popular">Popular</string>
+    <string name="movie_now_playing">Now playing</string>
 </resources>
