@@ -1,5 +1,6 @@
 package com.riadmahi.movienow.ui.common
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -7,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -26,10 +28,13 @@ fun MovieCard(
     showDescription: Boolean = true,
     cornerRadius: Dp = 8.dp,
     cardSize: CardSize = CardSize.Medium,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
+    onClick: () -> Unit = { }
 ) {
     Column(
-        modifier = Modifier.width(cardSize.width),
+        modifier = Modifier.width(cardSize.width)
+            .clip(RoundedCornerShape(cornerRadius))
+            .clickable { onClick() },
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Card(
