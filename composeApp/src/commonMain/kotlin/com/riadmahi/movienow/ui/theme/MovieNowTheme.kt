@@ -21,7 +21,7 @@ fun MovieNowTheme(
     val colors = Colors(
         primary = Color(0xFFFF28A2),
         primaryVariant = Color(0xFFFF28A2),
-        secondary = Color(0xFFFF28A2),
+        secondary = Color(0xFF5A0C38),
         secondaryVariant = Color(0xFFFF28A2),
         background = Color.Black,
         surface = Color.Black,
