@@ -19,7 +19,7 @@ fun MovieDetailsDescription() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 50.dp)
+            .padding(top = 16.dp)
             .padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
