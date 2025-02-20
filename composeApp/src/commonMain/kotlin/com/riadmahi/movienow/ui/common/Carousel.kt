@@ -65,7 +65,7 @@ fun Carousel(
             val pagerState = rememberPagerState(pageCount = { movies.size })
             LaunchedEffect(pagerState) {
                 while (true) {
-                    delay(3000L)
+                    delay(5000L)
                     val nextPage = (pagerState.currentPage + 1) % movies.size
                     pagerState.animateScrollToPage(
                         nextPage,
@@ -76,7 +76,7 @@ fun Carousel(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp)
+                    .height(450.dp)
                     .clip(
                         shape = RoundedCornerShape(
                             topEnd = 12.dp,
@@ -86,6 +86,7 @@ fun Carousel(
                         )
                     )
             ) {
+
                 Crossfade(targetState = pagerState.currentPage) { currentPage ->
                     Box(modifier = Modifier.fillMaxSize()) {
                         AsyncImage(
@@ -93,7 +94,7 @@ fun Carousel(
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .blur(50.dp),
+                                .blur(150.dp),
                             contentScale = ContentScale.Crop
                         )
                         Canvas(
@@ -117,13 +118,13 @@ fun Carousel(
                 HorizontalPager(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(500.dp),
+                        .height(450.dp),
                     state = pagerState,
                     verticalAlignment = Alignment.CenterVertically,
                     pageSpacing = 100.dp
                 ) { page ->
                     Box(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxSize().padding(bottom = 12.dp),
                         contentAlignment = Alignment.BottomCenter
                     ) {
                         val pageOffset = pagerState.calculateCurrentOffsetForPage(page)
@@ -183,6 +184,15 @@ fun Carousel(
                         }
                     }
                 }
+
+                Text(
+                    "TOP RATED MOVIES",
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 24.dp)
+                )
             }
         }
     }
