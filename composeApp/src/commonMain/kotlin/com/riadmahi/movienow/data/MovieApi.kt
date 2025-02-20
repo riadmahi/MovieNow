@@ -2,78 +2,42 @@ package com.riadmahi.movienow.data
 
 import com.riadmahi.movienow.data.model.MovieDetails
 import com.riadmahi.movienow.data.model.MoviePage
+import com.riadmahi.movienow.data.model.MovieWatchProviders
 import com.riadmahi.movienow.utils.Resource
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 
 class MovieApi {
+    suspend fun getPopularMovies(): Resource<MoviePage> =
+        fetchResource("movie/popular?language=en-US&page=1")
 
-    suspend fun getPopularMovies(): Resource<MoviePage> {
-        try {
-            val response = client.get {
-                url("movie/popular?language=en-US&page=1")
-            }
-            return Resource.Success(response.body())
-        } catch (e: RedirectResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ClientRequestException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ServerResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: Exception) {
-            return (Resource.Error(e.message ?: "Something went wrong"))
-        }
-    }
+    suspend fun getNowPlayingMovies(): Resource<MoviePage> =
+        fetchResource("movie/now_playing?language=en-US&page=1")
 
-    suspend fun getNowPlayingMovies(): Resource<MoviePage> {
-        try {
-            val response = client.get {
-                url("movie/now_playing?language=en-US&page=1")
-            }
-            return Resource.Success(response.body())
-        } catch (e: RedirectResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ClientRequestException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ServerResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: Exception) {
-            return (Resource.Error(e.message ?: "Something went wrong"))
-        }
-    }
+    suspend fun getUpcomingMovies(): Resource<MoviePage> =
+        fetchResource("movie/upcoming?language=en-US&page=1")
 
-    suspend fun getUpcomingMovies(): Resource<MoviePage> {
-        try {
-            val response = client.get {
-                url("movie/upcoming?language=en-US&page=1")
-            }
-            return Resource.Success(response.body())
-        } catch (e: RedirectResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ClientRequestException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ServerResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: Exception) {
-            return (Resource.Error(e.message ?: "Something went wrong"))
-        }
-    }
+    suspend fun getMovie(id: Int): Resource<MovieDetails> =
+        fetchResource("movie/$id?language=en-US&page=1")
 
-    suspend fun getMovie(id: Int): Resource<MovieDetails> {
-        try {
+    suspend fun getMovieWatchProviders(id: Int): Resource<MovieWatchProviders> =
+        fetchResource("movie/$id/watch/providers")
+
+    private suspend inline fun <reified T> fetchResource(endpoint: String): Resource<T> {
+        return try {
             val response = client.get {
-                url("movie/$id?language=en-US&page=1")
+                url(endpoint)
             }
-            return Resource.Success(response.body())
-        } catch (e: RedirectResponseException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ClientRequestException) {
-            return (Resource.Error(e.response.status.description))
-        } catch (e: ServerResponseException) {
-            return (Resource.Error(e.response.status.description))
+            Resource.Success(response.body())
         } catch (e: Exception) {
-            return (Resource.Error(e.message ?: "Something went wrong"))
+            val errorMsg = when (e) {
+                is RedirectResponseException,
+                is ClientRequestException,
+                    is ServerResponseException -> e.message ?: "Server error"
+                else -> e.message ?: "Something went wrong"
+            }
+            Resource.Error(errorMsg)
         }
     }
 }
