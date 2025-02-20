@@ -11,6 +11,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsDescription
 import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsHeader
 import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsRatingAndVideo
+import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsCategories
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -38,6 +39,7 @@ fun MovieDetailsScreen(
                         textScore = "${(movieDetails.voteAverage * 10).toInt()}%"
                     )
                     movieDetails.overview?.let { MovieDetailsDescription(description = movieDetails.overview) }
+                    MovieDetailsCategories(movieDetails.genres)
                 }
             }
         }
