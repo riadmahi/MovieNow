@@ -1,28 +1,35 @@
 package com.riadmahi.movienow.data
 
+import com.riadmahi.movienow.data.model.MovieCredits
 import com.riadmahi.movienow.data.model.MovieDetails
 import com.riadmahi.movienow.data.model.MoviePage
 import com.riadmahi.movienow.data.model.MovieWatchProviders
 import com.riadmahi.movienow.utils.Resource
+import com.riadmahi.movienow.utils.getDefaultLanguage
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 
 class MovieApi {
+    private val defaultLanguage = getDefaultLanguage()
+
     suspend fun getPopularMovies(): Resource<MoviePage> =
-        fetchResource("movie/popular?language=en-US&page=1")
+        fetchResource("movie/popular?language=${defaultLanguage}&page=1")
 
     suspend fun getNowPlayingMovies(): Resource<MoviePage> =
-        fetchResource("movie/now_playing?language=en-US&page=1")
+        fetchResource("movie/now_playing?language=${defaultLanguage}S&page=1")
 
     suspend fun getUpcomingMovies(): Resource<MoviePage> =
-        fetchResource("movie/upcoming?language=en-US&page=1")
+        fetchResource("movie/upcoming?language=${defaultLanguage}&page=1")
 
     suspend fun getMovie(id: Int): Resource<MovieDetails> =
-        fetchResource("movie/$id?language=en-US&page=1")
+        fetchResource("movie/$id?language=${defaultLanguage}&page=1")
 
     suspend fun getMovieWatchProviders(id: Int): Resource<MovieWatchProviders> =
         fetchResource("movie/$id/watch/providers")
+
+    suspend fun getMovieCredits(id: Int): Resource<MovieCredits> =
+        fetchResource("movie/$id/credits?language=${defaultLanguage}")
 
     private suspend inline fun <reified T> fetchResource(endpoint: String): Resource<T> {
         return try {
