@@ -27,19 +27,22 @@ class MovieDetailsViewModel(
         viewModelScope.launch {
             combine(
                 movieRepository.getMovie(movieId),
-                movieRepository.getMovieWatchProviders(movieId)
-            ) { movieResource, watchProvidersResource ->
-                // Use the movie resource as the primary result.
+                movieRepository.getMovieWatchProviders(movieId),
+                movieRepository.getMovieCredits(movieId)
+            ) { movieResource, watchProvidersResource, movieCreditsResource ->
                 when (movieResource) {
                     is Resource.Loading -> MovieDetailsUiState.Loading
                     is Resource.Error -> MovieDetailsUiState.Error(movieResource.error ?: "Unknown error")
                     is Resource.Success -> {
-                        // If watch providers are available and successful, include them; otherwise, pass null.
                         val providers = if (watchProvidersResource is Resource.Success)
                             watchProvidersResource.data
                         else null
+
+                        val credits = if (movieCreditsResource is Resource.Success)
+                            movieCreditsResource.data
+                        else null
                         
-                        MovieDetailsUiState.Content(movieResource.data, providers?.results?.get("FR")?.flatRate)
+                        MovieDetailsUiState.Content(movieResource.data, providers?.results?.get("FR")?.flatRate, credits?.cast)
                     }
                 }
             }.collect { uiState ->
