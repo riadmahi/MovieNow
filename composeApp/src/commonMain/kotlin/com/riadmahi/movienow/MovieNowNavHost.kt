@@ -21,6 +21,7 @@ import com.riadmahi.movienow.ui.main.explore.ExploreViewModel
 import com.riadmahi.movienow.ui.main.explore.ProfileScreen
 import com.riadmahi.movienow.ui.main.explore.SearchScreen
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsScreen
+import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsViewModel
 import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_explore
@@ -31,7 +32,6 @@ import org.jetbrains.compose.resources.StringResource
 
 @Composable
 fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepository) {
-    val navBackStackEntry = navController.currentBackStackEntryAsState()
     Scaffold(
         bottomBar = { if(navController.shouldShowBottomBar) MovieNowBottomNavigationBar(navController) }
     ) { innerPadding ->
@@ -71,7 +71,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 ExploreScreen(
                     viewModel = viewModel,
                     onNavigateToMovieDetails = { movie ->
-                        navController.navigate("${MovieNowDestination.MovieDetails}/${movie.id}")
+                        navController.navigate("${MovieNowDestination.MovieDetails.route}/${movie.id}")
                     }
                 )
             }
@@ -84,13 +84,20 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 ProfileScreen()
             }
 
-            composable(
-                route = MovieNowDestination.MovieDetails.route,
-                listOf(navArgument("movieId") { type = NavType.IntType })
-            ) {
-                val id = navBackStackEntry.value?.arguments?.getInt("movieId")
-                MovieDetailsScreen()
-            }
+                composable(
+                    route = "${MovieNowDestination.MovieDetails.route}/{movieId}",
+                    arguments = listOf(
+                        navArgument("movieId") {
+                            type = NavType.IntType
+                        }
+                    )
+                ) { backStackEntry ->
+                    val id = backStackEntry.arguments?.getInt("movieId") ?: 0
+                    val viewModel = viewModel<MovieDetailsViewModel> {
+                        MovieDetailsViewModel(movieRepository = movieRepository, movieId = id)
+                    }
+                    MovieDetailsScreen(viewModel)
+                }
         }
     }
 }
