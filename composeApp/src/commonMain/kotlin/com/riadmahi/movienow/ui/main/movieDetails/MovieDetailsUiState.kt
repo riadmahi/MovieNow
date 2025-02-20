@@ -1,9 +1,13 @@
 package com.riadmahi.movienow.ui.main.movieDetails
 
 import com.riadmahi.movienow.data.model.MovieDetails
+import com.riadmahi.movienow.data.model.WatchProvider
 
 sealed interface MovieDetailsUiState {
     data object Loading: MovieDetailsUiState
-    data class Success(val movieDetails: MovieDetails) : MovieDetailsUiState
+    data class Content(
+        val movieDetails: MovieDetails,
+        val watchProviders: List<WatchProvider>? = null
+    ) : MovieDetailsUiState
     data class Error(val errorMessage: String) : MovieDetailsUiState
 }
