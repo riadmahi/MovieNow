@@ -22,6 +22,9 @@ class MovieApi {
     suspend fun getUpcomingMovies(): Resource<MoviePage> =
         fetchResource("movie/upcoming?language=${defaultLanguage}&page=1")
 
+    suspend fun getTopRatedMovies(): Resource<MoviePage> =
+        fetchResource("movie/top_rated?language=${defaultLanguage}&page=1")
+
     suspend fun getMovie(id: Int): Resource<MovieDetails> =
         fetchResource("movie/$id?language=${defaultLanguage}&page=1")
 

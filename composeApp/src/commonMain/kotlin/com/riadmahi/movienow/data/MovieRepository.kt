@@ -29,6 +29,11 @@ class MovieRepository(private val api: MovieApi) {
         emit(api.getUpcomingMovies())
     }.flowOn(Dispatchers.IO)
 
+    fun getTopRatedMovieList(): Flow<Resource<MoviePage>> = flow {
+        emit(Resource.Loading)
+        emit(api.getTopRatedMovies())
+    }.flowOn(Dispatchers.IO)
+
     fun getMovie(id: Int): Flow<Resource<MovieDetails>> = flow {
         emit(Resource.Loading)
         emit(api.getMovie(id = id))
