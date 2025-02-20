@@ -22,11 +22,11 @@ import coil3.compose.AsyncImage
 import com.riadmahi.movienow.ui.common.CardSize
 
 @Composable
-fun MovieDetailsHeader() {
-    val thumbnail =
-        "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=3125&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    val title = "Le cinéma des inconnus"
-    val year = "2025"
+fun MovieDetailsHeader(
+    thumbnail: String,
+    title: String,
+    year: String
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()

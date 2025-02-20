@@ -13,10 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MovieDetailsRatingAndVideo() {
-    val numberRating = 12
-    val score = 6.7F / 10
-    val textScore = "67%"
+fun MovieDetailsRatingAndVideo(
+    numberRating: Int,
+    score: Float,
+    textScore: String
+) {
     Row(
         modifier = Modifier.fillMaxWidth()
             .padding(horizontal = 12.dp)

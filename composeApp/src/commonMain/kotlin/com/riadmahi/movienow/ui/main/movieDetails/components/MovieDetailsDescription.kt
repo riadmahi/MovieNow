@@ -14,8 +14,9 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun MovieDetailsDescription() {
-    val description = "Shelly, une danseuse de cabaret expérimentée, doit faire face à son avenir lorsque son spectacle à Las Vegas est brusquement interrompu, après 30 ans de représentation. Danseuse dans la cinquantaine, elle peine à trouver quelle suite donner à sa carrière. Et en tant que mère, elle cherche à réparer une relation tendue avec sa fille, qui a souvent été reléguée au second plan par rapport à sa famille d'artistes.    "
+fun MovieDetailsDescription(
+    description: String
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
