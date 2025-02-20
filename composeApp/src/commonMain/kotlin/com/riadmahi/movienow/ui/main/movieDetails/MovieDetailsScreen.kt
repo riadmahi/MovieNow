@@ -14,7 +14,10 @@ import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsRatingA
 import kotlinx.datetime.LocalDate
 
 @Composable
-fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
+fun MovieDetailsScreen(
+    viewModel: MovieDetailsViewModel,
+    navigateBack: () -> Unit
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     when(uiState) {
         MovieDetailsUiState.Loading -> { CircularProgressIndicator(modifier = Modifier.size(50.dp)) }
@@ -26,7 +29,8 @@ fun MovieDetailsScreen(viewModel: MovieDetailsViewModel) {
                     MovieDetailsHeader(
                         title = movieDetails.title,
                         year = "${movieDetails.releaseDate?.let {LocalDate.parse(it).year}}",
-                        thumbnail = "https://image.tmdb.org/t/p/original/${movieDetails.posterPath}"
+                        thumbnail = "https://image.tmdb.org/t/p/original/${movieDetails.posterPath}",
+                        navigateBack = { navigateBack() }
                     )
                     MovieDetailsRatingAndVideo(
                         numberRating = movieDetails.voteCount,

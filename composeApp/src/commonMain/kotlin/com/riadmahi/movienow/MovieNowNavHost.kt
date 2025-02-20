@@ -96,7 +96,10 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                     val viewModel = viewModel<MovieDetailsViewModel> {
                         MovieDetailsViewModel(movieRepository = movieRepository, movieId = id)
                     }
-                    MovieDetailsScreen(viewModel)
+                    MovieDetailsScreen(
+                        viewModel = viewModel,
+                        navigateBack = { navController.popBackStack() }
+                    )
                 }
         }
     }
