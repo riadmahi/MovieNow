@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.CardSize
+import com.riadmahi.movienow.ui.common.Carousel
 import com.riadmahi.movienow.ui.common.MovieRow
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_section_now_playing
@@ -28,6 +29,7 @@ fun ExploreScreen(
     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (uiState is ExploreUiState.Content) {
             item {
+                Carousel(state = (uiState as ExploreUiState.Content).topRatedMovies)
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).popularMovies,
                     title = stringResource(Res.string.movie_section_popular),

@@ -7,7 +7,8 @@ sealed interface ExploreUiState {
     data class Content(
         val popularMovies: MovieListState,
         val nowPlayingMovies: MovieListState,
-        val upcomingMovies: MovieListState
+        val upcomingMovies: MovieListState,
+        val topRatedMovies: MovieListState
     ) : ExploreUiState
 
     data class Error(val errorMessage: String) : ExploreUiState
