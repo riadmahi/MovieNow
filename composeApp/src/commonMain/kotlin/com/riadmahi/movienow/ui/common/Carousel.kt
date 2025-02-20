@@ -3,6 +3,7 @@ package com.riadmahi.movienow.ui.common
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import coil3.compose.AsyncImage
+import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.main.explore.ExploreUiState
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
@@ -45,6 +47,7 @@ fun PagerState.calculateCurrentOffsetForPage(page: Int): Float {
 @Composable
 fun Carousel(
     state: ExploreUiState.MovieListState,
+    onMovieClick: (Movie) -> Unit = { }
 ) {
 
     when (state) {
@@ -140,7 +143,10 @@ fun Carousel(
                                         rotationX = lerp(10f, 0f, 1f - pageOffset.absoluteValue)
                                         translationY = lerp(60f, 0f, 1f - pageOffset.absoluteValue)
                                         rotationZ = lerp(15f, 0f, 1f - pageOffset.absoluteValue)
-                                    },
+                                    }
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .clickable { onMovieClick(movies[page]) }
+                                ,
                                 backgroundColor = Color.Transparent,
                                 shape = RoundedCornerShape(12.dp),
                                 elevation = 0.dp
@@ -186,7 +192,7 @@ fun Carousel(
                 }
 
                 Text(
-                    "TOP RATED MOVIES",
+                    "UPCOMING",
                     fontWeight = FontWeight.Normal,
                     fontSize = 15.sp,
                     modifier = Modifier

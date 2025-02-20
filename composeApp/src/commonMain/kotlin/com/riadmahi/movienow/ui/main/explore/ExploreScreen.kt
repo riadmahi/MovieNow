@@ -17,7 +17,7 @@ import com.riadmahi.movienow.ui.common.MovieRow
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_section_now_playing
 import movienow.composeapp.generated.resources.movie_section_popular
-import movienow.composeapp.generated.resources.movie_section_upcoming
+import movienow.composeapp.generated.resources.movie_section_top_rated
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -29,7 +29,10 @@ fun ExploreScreen(
     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (uiState is ExploreUiState.Content) {
             item {
-                Carousel(state = (uiState as ExploreUiState.Content).topRatedMovies)
+                Carousel(
+                    state = (uiState as ExploreUiState.Content).upcomingMovies,
+                    onMovieClick = { onNavigateToMovieDetails(it) }
+                )
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).popularMovies,
                     title = stringResource(Res.string.movie_section_popular),
@@ -42,8 +45,8 @@ fun ExploreScreen(
                     onMovieClick = { onNavigateToMovieDetails(it) }
                 )
                 MovieSection(
-                    state = (uiState as ExploreUiState.Content).upcomingMovies,
-                    title = stringResource(Res.string.movie_section_upcoming),
+                    state = (uiState as ExploreUiState.Content).topRatedMovies,
+                    title = stringResource(Res.string.movie_section_top_rated),
                     onMovieClick = { onNavigateToMovieDetails(it) }
                 )
             }
