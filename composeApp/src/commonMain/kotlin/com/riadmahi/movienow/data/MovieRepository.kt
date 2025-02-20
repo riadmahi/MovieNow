@@ -2,6 +2,7 @@ package com.riadmahi.movienow.data
 
 import com.riadmahi.movienow.data.model.MovieDetails
 import com.riadmahi.movienow.data.model.MoviePage
+import com.riadmahi.movienow.data.model.MovieWatchProviders
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -30,5 +31,10 @@ class MovieRepository(private val api: MovieApi) {
     fun getMovie(id: Int): Flow<Resource<MovieDetails>> = flow {
         emit(Resource.Loading)
         emit(api.getMovie(id = id))
+    }.flowOn(Dispatchers.IO)
+
+    fun getMovieWatchProviders(id: Int): Flow<Resource<MovieWatchProviders>> = flow {
+        emit(Resource.Loading)
+        emit(api.getMovieWatchProviders(id = id))
     }.flowOn(Dispatchers.IO)
 }
