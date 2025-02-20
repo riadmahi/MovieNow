@@ -23,6 +23,7 @@ fun MovieDetailsScreen(
         is MovieDetailsUiState.Content -> {
             val movieDetails = (uiState as MovieDetailsUiState.Content).movieDetails
             val watchProviders = (uiState as MovieDetailsUiState.Content).watchProviders
+            val casting = (uiState as MovieDetailsUiState.Content).casting
 
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
@@ -40,6 +41,7 @@ fun MovieDetailsScreen(
                     watchProviders?.let { MovieDetailsWatchProviders(watchProviders) }
                     movieDetails.overview?.let { MovieDetailsDescription(description = movieDetails.overview) }
                     MovieDetailsCategories(movieDetails.genres)
+                    casting?.let { MovieDetailsCasting(casting) }
                 }
             }
         }

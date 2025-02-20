@@ -1,5 +1,6 @@
 package com.riadmahi.movienow.data
 
+import com.riadmahi.movienow.data.model.MovieCredits
 import com.riadmahi.movienow.data.model.MovieDetails
 import com.riadmahi.movienow.data.model.MoviePage
 import com.riadmahi.movienow.data.model.MovieWatchProviders
@@ -36,5 +37,10 @@ class MovieRepository(private val api: MovieApi) {
     fun getMovieWatchProviders(id: Int): Flow<Resource<MovieWatchProviders>> = flow {
         emit(Resource.Loading)
         emit(api.getMovieWatchProviders(id = id))
+    }.flowOn(Dispatchers.IO)
+
+    fun getMovieCredits(id: Int): Flow<Resource<MovieCredits>> = flow {
+        emit(Resource.Loading)
+        emit(api.getMovieCredits(id = id))
     }.flowOn(Dispatchers.IO)
 }

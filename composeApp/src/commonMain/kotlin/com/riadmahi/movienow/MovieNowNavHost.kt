@@ -37,7 +37,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = MovieNowBottomNavigation.Explore.route,
+            startDestination = "${MovieNowDestination.MovieDetails.route}/1118031",
             modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -84,23 +84,23 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 ProfileScreen()
             }
 
-                composable(
-                    route = "${MovieNowDestination.MovieDetails.route}/{movieId}",
-                    arguments = listOf(
-                        navArgument("movieId") {
-                            type = NavType.IntType
-                        }
-                    )
-                ) { backStackEntry ->
-                    val id = backStackEntry.arguments?.getInt("movieId") ?: 0
-                    val viewModel = viewModel<MovieDetailsViewModel> {
-                        MovieDetailsViewModel(movieRepository = movieRepository, movieId = id)
+            composable(
+                route = "${MovieNowDestination.MovieDetails.route}/{movieId}",
+                arguments = listOf(
+                    navArgument("movieId") {
+                        type = NavType.IntType
                     }
-                    MovieDetailsScreen(
-                        viewModel = viewModel,
-                        navigateBack = { navController.popBackStack() }
-                    )
+                )
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getInt("movieId") ?: 0
+                val viewModel = viewModel<MovieDetailsViewModel> {
+                    MovieDetailsViewModel(movieRepository = movieRepository, movieId = id)
                 }
+                MovieDetailsScreen(
+                    viewModel = viewModel,
+                    navigateBack = { navController.popBackStack() }
+                )
+            }
         }
     }
 }
