@@ -1,7 +1,7 @@
 package com.riadmahi.movienow.data
 
 import com.riadmahi.movienow.data.model.MovieDetails
-import com.riadmahi.movienow.data.model.MoviePageResponse
+import com.riadmahi.movienow.data.model.MoviePage
 import com.riadmahi.movienow.utils.Resource
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
@@ -9,7 +9,7 @@ import io.ktor.client.request.*
 
 class MovieApi {
 
-    suspend fun getPopularMovies(): Resource<MoviePageResponse> {
+    suspend fun getPopularMovies(): Resource<MoviePage> {
         try {
             val response = client.get {
                 url("movie/popular?language=en-US&page=1")
@@ -26,7 +26,7 @@ class MovieApi {
         }
     }
 
-    suspend fun getNowPlayingMovies(): Resource<MoviePageResponse> {
+    suspend fun getNowPlayingMovies(): Resource<MoviePage> {
         try {
             val response = client.get {
                 url("movie/now_playing?language=en-US&page=1")
@@ -43,7 +43,7 @@ class MovieApi {
         }
     }
 
-    suspend fun getUpcomingMovies(): Resource<MoviePageResponse> {
+    suspend fun getUpcomingMovies(): Resource<MoviePage> {
         try {
             val response = client.get {
                 url("movie/upcoming?language=en-US&page=1")
