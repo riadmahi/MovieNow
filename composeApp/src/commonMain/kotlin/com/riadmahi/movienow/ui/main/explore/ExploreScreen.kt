@@ -31,22 +31,18 @@ fun ExploreScreen(
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).popularMovies,
                     title = stringResource(Res.string.movie_section_popular),
-                    cardSize = CardSize.Medium
+                    cardSize = CardSize.Medium,
+                    onMovieClick = { onNavigateToMovieDetails(it) }
                 )
-            }
-
-            item {
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).nowPlayingMovies,
                     title = stringResource(Res.string.movie_section_now_playing),
                     onMovieClick = { onNavigateToMovieDetails(it) }
                 )
-            }
-
-            item {
                 MovieSection(
                     state = (uiState as ExploreUiState.Content).upcomingMovies,
-                    title = stringResource(Res.string.movie_section_upcoming)
+                    title = stringResource(Res.string.movie_section_upcoming),
+                    onMovieClick = { onNavigateToMovieDetails(it) }
                 )
             }
         }
