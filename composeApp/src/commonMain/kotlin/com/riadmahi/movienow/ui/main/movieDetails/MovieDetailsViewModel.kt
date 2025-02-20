@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.data.model.MovieDetails
+import com.riadmahi.movienow.data.model.MovieWatchProviders
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
@@ -23,13 +25,25 @@ class MovieDetailsViewModel(
 
     private fun fetchMovie() {
         viewModelScope.launch {
-            movieRepository.getMovie(movieId).collect { movieDetailsResource ->
-                 val movieDetailsState =when(movieDetailsResource) {
-                    Resource.Loading -> MovieDetailsUiState.Loading
-                    is Resource.Error -> MovieDetailsUiState.Error(movieDetailsResource.error ?: "Unknow error")
-                    is Resource.Success<MovieDetails> -> MovieDetailsUiState.Success(movieDetailsResource.data)
+            combine(
+                movieRepository.getMovie(movieId),
+                movieRepository.getMovieWatchProviders(movieId)
+            ) { movieResource, watchProvidersResource ->
+                // Use the movie resource as the primary result.
+                when (movieResource) {
+                    is Resource.Loading -> MovieDetailsUiState.Loading
+                    is Resource.Error -> MovieDetailsUiState.Error(movieResource.error ?: "Unknown error")
+                    is Resource.Success -> {
+                        // If watch providers are available and successful, include them; otherwise, pass null.
+                        val providers = if (watchProvidersResource is Resource.Success)
+                            watchProvidersResource.data
+                        else null
+                        
+                        MovieDetailsUiState.Content(movieResource.data, providers?.results?.get("FR")?.flatRate)
+                    }
                 }
-                _uiState.value = movieDetailsState
+            }.collect { uiState ->
+                _uiState.value = uiState
             }
         }
     }

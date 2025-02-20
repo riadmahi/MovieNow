@@ -8,10 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsDescription
-import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsHeader
-import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsRatingAndVideo
-import com.riadmahi.movienow.ui.main.movieDetails.components.MovieDetailsCategories
+import com.riadmahi.movienow.ui.main.movieDetails.components.*
 import kotlinx.datetime.LocalDate
 
 @Composable
@@ -23,8 +20,10 @@ fun MovieDetailsScreen(
     when(uiState) {
         MovieDetailsUiState.Loading -> { CircularProgressIndicator(modifier = Modifier.size(50.dp)) }
         is MovieDetailsUiState.Error -> { }
-        is MovieDetailsUiState.Success -> {
-            val movieDetails = (uiState as MovieDetailsUiState.Success).movieDetails
+        is MovieDetailsUiState.Content -> {
+            val movieDetails = (uiState as MovieDetailsUiState.Content).movieDetails
+            val watchProviders = (uiState as MovieDetailsUiState.Content).watchProviders
+
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 item {
                     MovieDetailsHeader(
@@ -38,6 +37,7 @@ fun MovieDetailsScreen(
                         score = (movieDetails.voteAverage / 10).toFloat(),
                         textScore = "${(movieDetails.voteAverage * 10).toInt()}%"
                     )
+                    watchProviders?.let { MovieDetailsWatchProviders(watchProviders) }
                     movieDetails.overview?.let { MovieDetailsDescription(description = movieDetails.overview) }
                     MovieDetailsCategories(movieDetails.genres)
                 }
