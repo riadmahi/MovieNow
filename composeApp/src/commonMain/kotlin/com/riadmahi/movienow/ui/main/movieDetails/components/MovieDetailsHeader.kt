@@ -33,7 +33,6 @@ fun MovieDetailsHeader(
     thumbnail: String,
     title: String,
     year: String,
-    navigateBack: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -105,18 +104,5 @@ fun MovieDetailsHeader(
                 )
             }
         }
-
-        Image(
-            painterResource(Res.drawable.ic_arrow_left),
-            contentDescription = Res.drawable.ic_arrow_left.toString(),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
-            modifier = Modifier
-                .padding(12.dp)
-                .size(32.dp)
-                .align(Alignment.TopStart)
-                .clip(RoundedCornerShape(50.dp))
-                .clickable { navigateBack() }
-
-        )
     }
 }

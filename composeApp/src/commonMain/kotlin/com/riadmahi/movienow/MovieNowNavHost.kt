@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.StringResource
 @Composable
 fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepository) {
     Scaffold(
-        bottomBar = { if(navController.shouldShowBottomBar) MovieNowBottomNavigationBar(navController) }
+        bottomBar = { if(navController.shouldShowBottomBar) MovieNowBottomNavigationBar(navController) },
     ) { innerPadding ->
         NavHost(
             navController = navController,
