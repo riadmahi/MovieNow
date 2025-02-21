@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.Movie
-import com.riadmahi.movienow.ui.main.explore.ExploreUiState
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
 import kotlin.math.absoluteValue
@@ -46,24 +45,24 @@ fun PagerState.calculateCurrentOffsetForPage(page: Int): Float {
 
 @Composable
 fun Carousel(
-    state: ExploreUiState.MovieListState,
+    state: MovieListState,
     onMovieClick: (Movie) -> Unit = { }
 ) {
 
     when (state) {
-        is ExploreUiState.MovieListState.Loading -> {
+        is MovieListState.Loading -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
 
-        is ExploreUiState.MovieListState.Error -> {
+        is MovieListState.Error -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Error: ${state.errorMessage}")
             }
         }
 
-        is ExploreUiState.MovieListState.Success -> {
+        is MovieListState.Success -> {
             val movies = state.movies
             val pagerState = rememberPagerState(pageCount = { movies.size })
             LaunchedEffect(pagerState) {

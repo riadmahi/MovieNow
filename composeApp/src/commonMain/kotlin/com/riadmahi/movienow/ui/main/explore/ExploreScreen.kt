@@ -13,6 +13,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.CardSize
 import com.riadmahi.movienow.ui.common.Carousel
+import com.riadmahi.movienow.ui.common.MovieListState
 import com.riadmahi.movienow.ui.common.MovieRow
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_section_now_playing
@@ -56,13 +57,13 @@ fun ExploreScreen(
 
 @Composable
 fun MovieSection(
-    state: ExploreUiState.MovieListState,
+    state: MovieListState,
     title: String,
     cardSize: CardSize = CardSize.Small,
     onMovieClick: (Movie) -> Unit = {}
 ) {
     when (state) {
-        is ExploreUiState.MovieListState.Success -> {
+        is MovieListState.Success -> {
             MovieRow(
                 title = title,
                 movies = state.movies,
@@ -70,11 +71,11 @@ fun MovieSection(
                 onMovieClick = { onMovieClick(it) }
             )
         }
-        is ExploreUiState.MovieListState.Loading -> {
+        is MovieListState.Loading -> {
             // Vous pouvez personnaliser le modifier selon vos besoins
             CircularProgressIndicator(modifier = Modifier.size(50.dp))
         }
-        is ExploreUiState.MovieListState.Error -> {
+        is MovieListState.Error -> {
             Text(text = "Error: ${state.errorMessage}")
         }
     }
