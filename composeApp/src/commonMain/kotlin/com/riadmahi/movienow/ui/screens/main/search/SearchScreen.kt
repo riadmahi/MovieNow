@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -27,9 +28,11 @@ import com.riadmahi.movienow.ui.screens.main.search.components.TrendingSection
 @Composable
 fun SearchScreen(viewModel: SearchViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-        var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-            mutableStateOf(TextFieldValue(""))
-        }
+    var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         TextField(
             searchText,
@@ -49,6 +52,11 @@ fun SearchScreen(viewModel: SearchViewModel) {
                 placeholderColor = Color(0xFFCA8EB0),
             ),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    keyboardController?.hide() // Dismiss the keyboard
+                }
+            ),
             maxLines = 1
         )
         when (uiState) {
