@@ -1,6 +1,7 @@
 package com.riadmahi.movienow.ui.screens.main.search.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -18,10 +19,11 @@ import movienow.composeapp.generated.resources.ic_link_external
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun TrendingRowItem(movie: Movie) {
+fun TrendingRowItem(movie: Movie, onMovieClicked: () -> Unit = { }) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onMovieClicked() }
             .padding(horizontal = 12.dp)
     ) {
         Row(

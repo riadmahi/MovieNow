@@ -70,7 +70,13 @@ fun SearchScreen(viewModel: SearchViewModel) {
                 MovieGrid(movieListState = (uiState as SearchUiState.Success).movieFoundListState)
             }
             is SearchUiState.Trending -> {
-                TrendingSection(trendingState = (uiState as SearchUiState.Trending).tredingMovieListState)
+                TrendingSection(
+                    trendingState = (uiState as SearchUiState.Trending).tredingMovieListState,
+                    onMovieClicked = {
+                        searchText = TextFieldValue(it.title)
+                        viewModel.searchMovies(it.title)
+                    }
+                )
             }
         }
     }

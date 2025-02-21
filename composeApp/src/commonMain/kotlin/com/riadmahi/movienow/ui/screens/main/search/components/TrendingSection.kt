@@ -14,12 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.MovieListState
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TrendingSection(trendingState: MovieListState) {
+fun TrendingSection(trendingState: MovieListState, onMovieClicked: (Movie) -> Unit = { }) {
     when (trendingState) {
         is MovieListState.Error -> {
             Text(text = "Error")
@@ -38,7 +39,7 @@ fun TrendingSection(trendingState: MovieListState) {
             ) {
                 stickyHeader { TrendingHeader() }
                 items(trendingState.movies) { movie ->
-                    TrendingRowItem(movie = movie)
+                    TrendingRowItem(movie = movie, onMovieClicked = { onMovieClicked(movie) })
                 }
             }
         }
