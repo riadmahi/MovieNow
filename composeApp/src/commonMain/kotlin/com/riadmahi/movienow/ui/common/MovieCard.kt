@@ -12,20 +12,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.Movie
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDate
 
 @Composable
 fun MovieCard(
     movie: Movie,
     showTitle: Boolean = true,
-    showDescription: Boolean = true,
     cornerRadius: Dp = 8.dp,
     cardSize: CardSize = CardSize.Medium,
     textAlign: TextAlign = TextAlign.Center,
@@ -56,20 +52,6 @@ fun MovieCard(
                     fontSize = cardSize.fontSize,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colors.onSurface,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            if(showDescription) {
-                val dateFormat = LocalDate.parse(movie.releaseDate)
-                val dateText = "${dateFormat.month}  ${dateFormat.year}"
-                Text(
-                    text = dateText,
-                    textAlign = textAlign,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.Gray,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
