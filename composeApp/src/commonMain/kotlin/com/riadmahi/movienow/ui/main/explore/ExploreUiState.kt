@@ -1,6 +1,6 @@
 package com.riadmahi.movienow.ui.main.explore
 
-import com.riadmahi.movienow.data.model.Movie
+import com.riadmahi.movienow.ui.common.MovieListState
 
 sealed interface ExploreUiState {
     data object Loading : ExploreUiState
@@ -12,10 +12,4 @@ sealed interface ExploreUiState {
     ) : ExploreUiState
 
     data class Error(val errorMessage: String) : ExploreUiState
-
-    sealed interface MovieListState {
-        data object Loading : MovieListState
-        data class Success(val movies: List<Movie>) : MovieListState
-        data class Error(val errorMessage: String) : MovieListState
-    }
 }
