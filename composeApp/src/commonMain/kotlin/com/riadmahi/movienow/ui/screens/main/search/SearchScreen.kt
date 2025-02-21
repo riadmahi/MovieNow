@@ -2,6 +2,8 @@ package com.riadmahi.movienow.ui.main.explore
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -13,9 +15,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.riadmahi.movienow.ui.common.MovieGrid
 import com.riadmahi.movienow.ui.main.search.SearchUiState
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
 import com.riadmahi.movienow.ui.screens.main.search.components.TrendingSection
@@ -29,7 +33,10 @@ fun SearchScreen(viewModel: SearchViewModel) {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         TextField(
             searchText,
-            onValueChange = { searchText = it },
+            onValueChange = { newValue ->
+                searchText = newValue
+                viewModel.searchMovies(newValue.text)
+            },
             placeholder = { Text("Search a movie") },
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
@@ -41,6 +48,8 @@ fun SearchScreen(viewModel: SearchViewModel) {
                 unfocusedIndicatorColor = Color.Transparent,
                 placeholderColor = Color(0xFFCA8EB0),
             ),
+            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
+            maxLines = 1
         )
         when (uiState) {
             is SearchUiState.Error -> {
@@ -50,7 +59,7 @@ fun SearchScreen(viewModel: SearchViewModel) {
                 CircularProgressIndicator(modifier = Modifier.size(50.dp))
             }
             is SearchUiState.Success -> {
-                // TODO: Show search results
+                MovieGrid(movieListState = (uiState as SearchUiState.Success).movieFoundListState)
             }
             is SearchUiState.Trending -> {
                 TrendingSection(trendingState = (uiState as SearchUiState.Trending).tredingMovieListState)
