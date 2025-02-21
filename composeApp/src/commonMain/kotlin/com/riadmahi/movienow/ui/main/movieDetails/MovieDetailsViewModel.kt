@@ -3,8 +3,6 @@ package com.riadmahi.movienow.ui.main.movieDetails
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.riadmahi.movienow.data.MovieRepository
-import com.riadmahi.movienow.data.model.MovieDetails
-import com.riadmahi.movienow.data.model.MovieWatchProviders
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
