@@ -43,7 +43,7 @@ fun MovieDetailsHeader(
             AsyncImage(
                 modifier = Modifier
                     .fillMaxSize()
-                    .blur(50.dp),
+                    .blur(150.dp),
                 model = thumbnail,
                 contentDescription = null,
                 contentScale = ContentScale.Crop)
