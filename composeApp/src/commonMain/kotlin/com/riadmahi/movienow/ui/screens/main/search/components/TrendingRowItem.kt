@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.riadmahi.movienow.data.model.Movie
@@ -36,15 +37,17 @@ fun TrendingRowItem(movie: Movie) {
             )
             Text(
                 text = movie.title,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
 
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp),
-            color = Color(0xFFCA8EB0),
+                .padding(start = 18.dp),
+            color = Color(0xFF3D102A),
             thickness = 0.5.dp
         )
     }

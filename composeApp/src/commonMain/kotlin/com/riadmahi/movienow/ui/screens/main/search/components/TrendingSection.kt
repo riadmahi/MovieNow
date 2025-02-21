@@ -31,6 +31,7 @@ fun TrendingSection(trendingState: MovieListState) {
         is MovieListState.Success -> {
             LazyColumn(
                 modifier = Modifier
+                    .padding(bottom = 60.dp)
                     .padding(horizontal = 12.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(Color(0xFF1A0B13))
