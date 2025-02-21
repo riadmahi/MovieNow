@@ -22,6 +22,7 @@ import com.riadmahi.movienow.ui.main.explore.ProfileScreen
 import com.riadmahi.movienow.ui.main.explore.SearchScreen
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsScreen
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsViewModel
+import com.riadmahi.movienow.ui.main.search.SearchViewModel
 import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_explore
@@ -37,7 +38,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = MovieNowBottomNavigation.Explore.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
+            startDestination = MovieNowBottomNavigation.Search.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
             modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -77,7 +78,10 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             }
 
             composable(route = MovieNowBottomNavigation.Search.route) {
-                SearchScreen()
+                val viewModel = viewModel<SearchViewModel> {
+                    SearchViewModel(movieRepository = movieRepository)
+                }
+                SearchScreen(viewModel)
             }
 
             composable(route = MovieNowBottomNavigation.Profile.route) {
