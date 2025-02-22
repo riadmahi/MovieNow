@@ -19,6 +19,8 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.buildKonfig)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -71,6 +73,8 @@ kotlin {
             implementation(libs.coil.network.ktor2)
             implementation(libs.coil.network.ktor3)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
 
         iosMain.dependencies {
@@ -109,6 +113,11 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    ksp(libs.androidx.room.compiler)
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 buildkonfig {
