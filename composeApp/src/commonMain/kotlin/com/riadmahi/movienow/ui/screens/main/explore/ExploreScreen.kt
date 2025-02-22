@@ -27,7 +27,7 @@ fun ExploreScreen(
     onNavigateToMovieDetails: (Movie) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyColumn(verticalArrangement = Arrangement.spacedBy(24.dp)) {
         if (uiState is ExploreUiState.Content) {
             item {
                 Carousel(

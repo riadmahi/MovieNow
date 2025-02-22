@@ -31,14 +31,15 @@ fun MovieRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 6.dp),
+                .padding(top = 24.dp, bottom = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = title,
                 fontWeight = FontWeight.Medium,
                 fontSize = 18.sp,
-                color = MaterialTheme.colors.onSurface
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(horizontal = 12.dp)
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
