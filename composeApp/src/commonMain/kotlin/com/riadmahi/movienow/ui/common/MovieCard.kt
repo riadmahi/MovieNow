@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.*
 import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.Movie
+import com.riadmahi.movienow.utils.bounceClick
 
 @Composable
 fun MovieCard(
@@ -30,7 +31,8 @@ fun MovieCard(
     Column(
         modifier = Modifier.width(cardSize.width)
             .clip(RoundedCornerShape(cornerRadius))
-            .clickable { onClick() },
+            .bounceClick()
+            .clickable {  onClick() },
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Card(
