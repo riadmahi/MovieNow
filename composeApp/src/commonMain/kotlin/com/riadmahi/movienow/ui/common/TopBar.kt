@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
+import com.riadmahi.movienow.utils.bounceClick
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_arrow_left
 import org.jetbrains.compose.resources.painterResource
@@ -36,6 +37,7 @@ fun MovieNowTopBar(
             modifier = Modifier
                 .size(32.dp)
                 .clip(RoundedCornerShape(50.dp))
+                .bounceClick()
                 .clickable { navigateBack() }
         )
     }
