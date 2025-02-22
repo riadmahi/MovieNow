@@ -29,6 +29,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
                     modifier = Modifier.bounceClick(),
                     icon = {
                         Image(
+                            modifier = Modifier.size(30.dp),
                             painter = painterResource(tab.icon),
                             contentDescription = tab.icon.toString(),
                             colorFilter = if (isSelected) {
