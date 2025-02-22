@@ -17,7 +17,7 @@ import movienow.composeapp.generated.resources.illustration_bookmarks
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun BookmarkScreen() {
+fun BookmarksScreen() {
 
     Column(
         modifier = Modifier.fillMaxSize(),

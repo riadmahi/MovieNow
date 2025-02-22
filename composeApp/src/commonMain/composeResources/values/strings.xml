@@ -1,7 +1,7 @@
 <resources>
     <string name="explore">Explore</string>
     <string name="search">Search</string>
-    <string name="bookmark">Bookmark</string>
+    <string name="bookmarks">Bookmarks</string>
     <string name="movie_section_popular">Popular</string>
     <string name="movie_section_now_playing">Now playing</string>
     <string name="movie_section_upcoming">Upcoming</string>

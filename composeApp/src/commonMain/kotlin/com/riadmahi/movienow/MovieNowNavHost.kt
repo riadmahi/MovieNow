@@ -86,7 +86,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             }
 
             composable(route = MovieNowBottomNavigation.Bookmark.route) {
-                BookmarkScreen()
+                BookmarksScreen()
             }
 
             composable(
@@ -124,7 +124,7 @@ private val NavController.shouldShowBottomBar
 sealed class MovieNowBottomNavigation(val route: String, val title: StringResource, val icon: DrawableResource) {
     data object Explore : MovieNowBottomNavigation(route = "explore", title = Res.string.explore, icon = Res.drawable.ic_explore)
     data object Search : MovieNowBottomNavigation(route = "search", title =  Res.string.search, icon = Res.drawable.ic_search)
-    data object Bookmark : MovieNowBottomNavigation(route = "bookmark", title =  Res.string.bookmark, icon = Res.drawable.ic_bookmark)
+    data object Bookmark : MovieNowBottomNavigation(route = "bookmarks", title =  Res.string.bookmarks, icon = Res.drawable.ic_bookmark)
 }
 
 
