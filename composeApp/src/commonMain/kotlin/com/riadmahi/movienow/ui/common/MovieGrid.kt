@@ -26,7 +26,13 @@ fun MovieGrid(
             Text(text = "Erreur : ${movieListState.errorMessage}")
         }
         MovieListState.Loading -> {
-            CircularProgressIndicator(modifier = Modifier.size(50.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(modifier = Modifier.size(50.dp))
+            }
         }
         is MovieListState.Success -> {
             Box(modifier = Modifier.fillMaxSize()) {

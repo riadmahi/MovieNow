@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -81,7 +82,13 @@ fun SearchScreen(
                 Text(text = "Error: ${(uiState as SearchUiState.Error).errorMessage}")
             }
             SearchUiState.Loading -> {
-                CircularProgressIndicator(modifier = Modifier.size(50.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(50.dp))
+                }
             }
             is SearchUiState.Success -> {
                 MovieGrid(

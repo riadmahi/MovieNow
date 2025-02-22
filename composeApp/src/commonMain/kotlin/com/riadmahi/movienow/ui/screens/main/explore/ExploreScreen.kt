@@ -85,8 +85,14 @@ fun MovieSection(
             )
         }
         is MovieListState.Loading -> {
-            // Vous pouvez personnaliser le modifier selon vos besoins
-            CircularProgressIndicator(modifier = Modifier.size(50.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(modifier = Modifier.size(50.dp))
+            }
         }
         is MovieListState.Error -> {
             Text(text = "Error: ${state.errorMessage}")
