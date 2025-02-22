@@ -12,7 +12,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 
-class MovieRepository(private val api: MovieApi) {
+class MovieRepository(
+    private val api: MovieApi,
+    private val localDB: LocalDB
+) {
 
     fun getPopularMovieList(): Flow<Resource<MoviePage>> = flow {
         emit(Resource.Loading)
