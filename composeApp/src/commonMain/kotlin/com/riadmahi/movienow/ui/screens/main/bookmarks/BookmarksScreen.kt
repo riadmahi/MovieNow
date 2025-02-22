@@ -66,8 +66,6 @@ fun BookmarksScreen() {
         CreateBookmarkDialog(
             onDismiss = { showDialog = false },
             onCreate = { listName ->
-                // Call your creation logic here, for example:
-                // viewModel.createBookmarkList(listName)
                 showDialog = false
             }
         )

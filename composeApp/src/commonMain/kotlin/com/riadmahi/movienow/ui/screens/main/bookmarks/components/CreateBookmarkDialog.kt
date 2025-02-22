@@ -80,14 +80,6 @@ fun CreateBookmarkDialog(
                         unfocusedIndicatorColor = Color.Transparent,
                         placeholderColor = Color(0xFFCA8EB0),
                         ),
-                    keyboardOptions = KeyboardOptions.Default.copy(
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
-                        }
-                    ),
                     singleLine = true
                 )
                 MovieNowButton(
