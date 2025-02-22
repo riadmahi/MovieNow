@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.riadmahi.movienow.MovieNowBottomNavigation
+import com.riadmahi.movienow.utils.bounceClick
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -25,6 +26,7 @@ fun MovieNowBottomNavigationBar(navController: NavController) {
             tabs.forEach { tab ->
                 val isSelected = currentRoute == tab.route
                 BottomNavigationItem(
+                    modifier = Modifier.bounceClick(),
                     icon = {
                         Image(
                             painter = painterResource(tab.icon),
