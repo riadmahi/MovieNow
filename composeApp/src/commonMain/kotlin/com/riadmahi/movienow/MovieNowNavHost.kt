@@ -81,7 +81,12 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 val viewModel = viewModel<SearchViewModel> {
                     SearchViewModel(movieRepository = movieRepository)
                 }
-                SearchScreen(viewModel)
+                SearchScreen(
+                    viewModel = viewModel,
+                    onNavigateToMovieDetails = { movie ->
+                        navController.navigate("${MovieNowDestination.MovieDetails.route}/${movie.id}")
+                    }
+                )
             }
 
             composable(route = MovieNowBottomNavigation.Profile.route) {

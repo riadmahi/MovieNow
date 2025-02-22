@@ -14,9 +14,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.riadmahi.movienow.data.model.Movie
 
 @Composable
-fun MovieGrid(movieListState: MovieListState) {
+fun MovieGrid(
+    movieListState: MovieListState,
+    onMovieClick: (Movie) -> Unit = { }
+) {
     when (movieListState) {
         is MovieListState.Error -> {
             Text(text = "Erreur : ${movieListState.errorMessage}")
@@ -43,10 +47,9 @@ fun MovieGrid(movieListState: MovieListState) {
                     contentPadding = PaddingValues(vertical = 25.dp)
                 ) {
                     items(movieListState.movies) { movie ->
-                        MovieCard(movie = movie)
+                        MovieCard(movie = movie, onClick = { onMovieClick(movie) })
                     }
                 }
-
 
                 Canvas(
                     modifier = Modifier.fillMaxWidth().height(25.dp).align(Alignment.BottomCenter),

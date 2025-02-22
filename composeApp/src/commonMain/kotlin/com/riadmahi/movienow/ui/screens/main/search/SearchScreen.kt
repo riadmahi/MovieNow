@@ -20,13 +20,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.MovieGrid
 import com.riadmahi.movienow.ui.main.search.SearchUiState
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
 import com.riadmahi.movienow.ui.screens.main.search.components.TrendingSection
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel) {
+fun SearchScreen(
+    viewModel: SearchViewModel,
+    onNavigateToMovieDetails: (Movie) -> Unit
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var searchText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(""))
@@ -54,7 +58,7 @@ fun SearchScreen(viewModel: SearchViewModel) {
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    keyboardController?.hide() // Dismiss the keyboard
+                    keyboardController?.hide()
                 }
             ),
             maxLines = 1
@@ -67,7 +71,10 @@ fun SearchScreen(viewModel: SearchViewModel) {
                 CircularProgressIndicator(modifier = Modifier.size(50.dp))
             }
             is SearchUiState.Success -> {
-                MovieGrid(movieListState = (uiState as SearchUiState.Success).movieFoundListState)
+                MovieGrid(
+                    movieListState = (uiState as SearchUiState.Success).movieFoundListState,
+                    onMovieClick = { onNavigateToMovieDetails(it) }
+                )
             }
             is SearchUiState.Trending -> {
                 TrendingSection(
