@@ -43,6 +43,7 @@ class MovieRepository(private val api: MovieApi) {
         emit(Resource.Loading)
         emit(api.getSearchMovies(query))
     }.flowOn(Dispatchers.IO)
+    
     fun getMovie(id: Int): Flow<Resource<MovieDetails>> = flow {
         emit(Resource.Loading)
         emit(api.getMovie(id = id))

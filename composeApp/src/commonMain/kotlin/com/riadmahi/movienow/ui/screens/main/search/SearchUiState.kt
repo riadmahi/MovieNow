@@ -1,6 +1,5 @@
 package com.riadmahi.movienow.ui.main.search
 
-import com.riadmahi.movienow.data.model.Movie
 import com.riadmahi.movienow.ui.common.MovieListState
 
 sealed interface SearchUiState {
