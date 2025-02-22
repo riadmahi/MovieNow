@@ -34,7 +34,7 @@ fun MovieDetailsScreen(
                             year = "${movieDetails.releaseDate?.let {LocalDate.parse(it).year}}",
                             thumbnail = "https://image.tmdb.org/t/p/original/${movieDetails.posterPath}",
                         )
-                        MovieDetailsRatingAndVideo(
+                        MovieDetailsRatingAndBookmark(
                             numberRating = movieDetails.voteCount,
                             score = (movieDetails.voteAverage / 10).toFloat(),
                             textScore = "${(movieDetails.voteAverage * 10).toInt()}%"

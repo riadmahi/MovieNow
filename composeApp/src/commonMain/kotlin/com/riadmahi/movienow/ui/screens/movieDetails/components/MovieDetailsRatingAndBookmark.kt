@@ -11,9 +11,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.riadmahi.movienow.ui.common.MovieNowButton
 
 @Composable
-fun MovieDetailsRatingAndVideo(
+fun MovieDetailsRatingAndBookmark(
     numberRating: Int,
     score: Float,
     textScore: String
@@ -30,6 +31,8 @@ fun MovieDetailsRatingAndVideo(
             score= score,
             numberRating= numberRating
         )
+
+        MovieNowButton(text = "+ Add")
     }
 }
 
