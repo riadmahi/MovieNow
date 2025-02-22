@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun MovieNowBottomNavigationBar(navController: NavController) {
     val tabs =
-        listOf(MovieNowBottomNavigation.Explore, MovieNowBottomNavigation.Search, MovieNowBottomNavigation.Profile)
+        listOf(MovieNowBottomNavigation.Explore, MovieNowBottomNavigation.Search, MovieNowBottomNavigation.Bookmark)
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
     Column {
         BottomNavigation(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {

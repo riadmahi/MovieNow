@@ -4,6 +4,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun ProfileScreen() {
-    Text("Hello profile screen")
+fun BookmarkScreen() {
+    Text("Hello bookmark screen")
 }

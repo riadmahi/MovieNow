@@ -16,17 +16,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.riadmahi.movienow.data.MovieRepository
 import com.riadmahi.movienow.ui.common.MovieNowBottomNavigationBar
-import com.riadmahi.movienow.ui.main.explore.ExploreScreen
-import com.riadmahi.movienow.ui.main.explore.ExploreViewModel
-import com.riadmahi.movienow.ui.main.explore.ProfileScreen
-import com.riadmahi.movienow.ui.main.explore.SearchScreen
+import com.riadmahi.movienow.ui.main.explore.*
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsScreen
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsViewModel
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
 import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_explore
-import movienow.composeapp.generated.resources.ic_profile
 import movienow.composeapp.generated.resources.ic_search
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -89,8 +85,8 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 )
             }
 
-            composable(route = MovieNowBottomNavigation.Profile.route) {
-                ProfileScreen()
+            composable(route = MovieNowBottomNavigation.Bookmark.route) {
+                BookmarkScreen()
             }
 
             composable(
@@ -119,7 +115,7 @@ private val NavController.shouldShowBottomBar
     get() = when (this.currentBackStackEntryAsState().value?.destination?.route) {
         MovieNowBottomNavigation.Explore.route,
         MovieNowBottomNavigation.Search.route,
-        MovieNowBottomNavigation.Profile.route,
+        MovieNowBottomNavigation.Bookmark.route,
             -> true
 
         else -> false
@@ -128,7 +124,7 @@ private val NavController.shouldShowBottomBar
 sealed class MovieNowBottomNavigation(val route: String, val title: StringResource, val icon: DrawableResource) {
     data object Explore : MovieNowBottomNavigation(route = "explore", title = Res.string.explore, icon = Res.drawable.ic_explore)
     data object Search : MovieNowBottomNavigation(route = "search", title =  Res.string.search, icon = Res.drawable.ic_search)
-    data object Profile : MovieNowBottomNavigation(route = "profile", title =  Res.string.profile, icon = Res.drawable.ic_profile)
+    data object Bookmark : MovieNowBottomNavigation(route = "bookmark", title =  Res.string.bookmark, icon = Res.drawable.ic_bookmark)
 }
 
 
