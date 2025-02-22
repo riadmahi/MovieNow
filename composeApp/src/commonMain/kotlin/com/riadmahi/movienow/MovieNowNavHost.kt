@@ -38,7 +38,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = MovieNowBottomNavigation.Search.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
+            startDestination = MovieNowBottomNavigation.Explore.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
             modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
