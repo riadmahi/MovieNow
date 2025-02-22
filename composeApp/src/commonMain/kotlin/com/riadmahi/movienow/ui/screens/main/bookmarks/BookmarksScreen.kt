@@ -2,8 +2,8 @@ package com.riadmahi.movienow.ui.main.explore
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,12 +12,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.riadmahi.movienow.ui.common.MovieNowButton
+import com.riadmahi.movienow.ui.screens.main.bookmarks.components.CreateBookmarkDialog
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.illustration_bookmarks
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun BookmarksScreen() {
+
+    var showDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -55,8 +58,19 @@ fun BookmarksScreen() {
                 )
             }
             MovieNowButton(text = "Create") {
-
+                showDialog = true
             }
         }
     }
+    if (showDialog) {
+        CreateBookmarkDialog(
+            onDismiss = { showDialog = false },
+            onCreate = { listName ->
+                // Call your creation logic here, for example:
+                // viewModel.createBookmarkList(listName)
+                showDialog = false
+            }
+        )
+    }
 }
+
