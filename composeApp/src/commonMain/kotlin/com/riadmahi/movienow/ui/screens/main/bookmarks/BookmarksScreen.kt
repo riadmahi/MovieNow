@@ -97,7 +97,7 @@ fun BookmarksScreen(viewModel: BookmarksViewModel) {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "Bookmarks",
+                                text = stringResource(Res.string.bookmarks_list),
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier.weight(1f)

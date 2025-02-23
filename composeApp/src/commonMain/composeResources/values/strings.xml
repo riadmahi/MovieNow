@@ -8,7 +8,8 @@
     <string name="movie_section_top_rated">Top Rated</string>
     <string name="bookmarks_create_bookmark_list">Create Bookmark List</string>
     <string name="bookmarks_your_bookmark_list_name">Your Bookmark List Name</string>
-    <string name="bookmarks_list_empty">Your bookmarks list is empty!</string>
+    <string name="bookmarks_list">Bookmarks list</string>
+    <string name="bookmarks_list_empty">Your bookmarks list is empty</string>
     <string name="bookmarks_list_add_list">Start by adding your first one!</string>
     <string name="movie_details_description">Synopsis</string>
     <string name="movie_details_casting">Casting</string>

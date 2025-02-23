@@ -9,8 +9,9 @@
     <string name="movie_section_top_rated">Les mieux notés</string>
     <string name="bookmarks_create_bookmark_list">Créer une liste de favoris</string>
     <string name="bookmarks_your_bookmark_list_name">Nom de votre liste de favoris</string>
+    <string name="bookmarks_list">Mes favoris</string>    
     <string name="bookmarks_list_empty">Votre liste de favoris est vide !</string>
-    <string name="bookmarks_list_add_list">Commencez par ajouter le premier !</string>
+    <string name="bookmarks_list_add_list">Créer ma première liste ?</string>
     <string name="movie_details_description">Synopsis</string>
     <string name="movie_details_casting">Distribution</string>
     <string name="movie_details_casting_photo_desc">Photo du casting</string>
