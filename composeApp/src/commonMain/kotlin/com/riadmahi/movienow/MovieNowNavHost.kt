@@ -20,6 +20,7 @@ import com.riadmahi.movienow.ui.main.explore.*
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsScreen
 import com.riadmahi.movienow.ui.main.movieDetails.MovieDetailsViewModel
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
+import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksViewModel
 import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_explore
@@ -34,7 +35,7 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = MovieNowBottomNavigation.Explore.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
+            startDestination = MovieNowBottomNavigation.Bookmark.route, //for debbuging details view"${MovieNowDestination.MovieDetails.route}/1118031"
             modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -86,7 +87,10 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             }
 
             composable(route = MovieNowBottomNavigation.Bookmark.route) {
-                BookmarksScreen()
+                val viewModel = viewModel<BookmarksViewModel> {
+                    BookmarksViewModel(movieRepository = movieRepository)
+                }
+                BookmarksScreen(viewModel)
             }
 
             composable(

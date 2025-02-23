@@ -4,6 +4,8 @@ import com.riadmahi.movienow.data.model.MovieCredits
 import com.riadmahi.movienow.data.model.MovieDetails
 import com.riadmahi.movienow.data.model.MoviePage
 import com.riadmahi.movienow.data.model.MovieWatchProviders
+import com.riadmahi.movienow.data.model.local.BookmarkList
+import com.riadmahi.movienow.data.model.local.BookmarkWithMovies
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -60,5 +62,20 @@ class MovieRepository(
     fun getMovieCredits(id: Int): Flow<Resource<MovieCredits>> = flow {
         emit(Resource.Loading)
         emit(api.getMovieCredits(id = id))
+    }.flowOn(Dispatchers.IO)
+
+    fun createBookmark(name: String): Flow<Resource<Long>> = flow {
+        emit(Resource.Loading)
+        emit(localDB.insertBookmark(BookmarkList(name = name)))
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteBookmark(bookmark: BookmarkList): Flow<Resource<Unit>> = flow {
+        emit(Resource.Loading)
+        emit(localDB.deleteBookmark(bookmark))
+    }.flowOn(Dispatchers.IO)
+
+    fun fetchBookmarks(): Flow<Resource<List<BookmarkWithMovies>>> = flow {
+        emit(Resource.Loading)
+        emit(localDB.getBookmarksWithMovies())
     }.flowOn(Dispatchers.IO)
 }
