@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="explore">Explorer</string>
+    <string name="search">Rechercher</string>
+    <string name="bookmarks">Favoris</string>
+    <string name="movie_section_popular">Populaires</string>
+    <string name="movie_section_now_playing">À l'affiche</string>
+    <string name="movie_section_upcoming">PROCHAINEMENT</string>
+    <string name="movie_section_top_rated">Les mieux notés</string>
+    <string name="bookmarks_create_bookmark_list">Créer une liste de favoris</string>
+    <string name="bookmarks_your_bookmark_list_name">Nom de votre liste de favoris</string>
+    <string name="bookmarks_list_empty">Votre liste de favoris est vide !</string>
+    <string name="bookmarks_list_add_list">Commencez par ajouter le premier !</string>
+    <string name="movie_details_description">Synopsis</string>
+    <string name="movie_details_casting">Distribution</string>
+    <string name="movie_details_casting_photo_desc">Photo du casting</string>
+    <string name="movie_details_rating_note">Note</string>
+    <string name="movie_details_votes">votes</string>
+    <string name="search_placeholder">Rechercher un film</string>
+    <string name="search_trending">TENDANCES</string>
+    <string name="button_create">Créer</string>
+    <string name="button_add">+ Ajouter</string>
+</resources>
