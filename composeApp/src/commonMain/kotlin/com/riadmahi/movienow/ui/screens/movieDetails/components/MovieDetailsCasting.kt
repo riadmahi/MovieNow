@@ -17,6 +17,10 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.CastMember
 import com.riadmahi.movienow.ui.common.CardSize
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.movie_details_casting
+import movienow.composeapp.generated.resources.movie_details_casting_photo_desc
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieDetailsCasting(casting: List<CastMember>) {
@@ -26,10 +30,11 @@ fun MovieDetailsCasting(casting: List<CastMember>) {
             .padding(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        Text("Casting",
-             fontSize = 18.sp,
-             fontWeight = FontWeight.SemiBold,
-             modifier = Modifier.padding(horizontal = 12.dp)
+        Text(
+            stringResource(Res.string.movie_details_casting),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(horizontal = 12.dp)
         )
 
         LazyRow(
@@ -55,7 +60,7 @@ fun CastingCard(castMember: CastMember) {
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = "https://image.tmdb.org/t/p/original/${castMember.profilePath}",
-                contentDescription = "Actor casting photo",
+                contentDescription = stringResource(Res.string.movie_details_casting_photo_desc),
                 contentScale = ContentScale.Crop
             )
         }

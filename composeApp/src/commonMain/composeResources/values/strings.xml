@@ -6,5 +6,17 @@
     <string name="movie_section_now_playing">Now playing</string>
     <string name="movie_section_upcoming">Upcoming</string>
     <string name="movie_section_top_rated">Top Rated</string>
-
+    <string name="bookmarks_create_bookmark_list">Create Bookmark List</string>
+    <string name="bookmarks_your_bookmark_list_name">Your Bookmark List Name</string>
+    <string name="bookmarks_list_empty">Your bookmarks list is empty!</string>
+    <string name="bookmarks_list_add_list">Start by adding your first one!</string>
+    <string name="movie_details_description">Synopsis</string>
+    <string name="movie_details_casting">Casting</string>
+    <string name="movie_details_casting_photo_desc">Casting photo</string>
+    <string name="movie_details_rating_note">Rating note</string>
+    <string name="movie_details_votes">votes</string>
+    <string name="search_placeholder">Search a movie</string>
+    <string name="search_trending">TRENDING</string>    
+    <string name="button_create">Create</string>
+    <string name="button_add">+ Add</string>
 </resources>

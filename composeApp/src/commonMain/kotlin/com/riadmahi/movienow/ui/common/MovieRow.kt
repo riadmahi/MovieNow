@@ -32,7 +32,7 @@ fun MovieRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp, bottom = 12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.Start
         ) {
             Text(
                 text = title,
@@ -41,22 +41,6 @@ fun MovieRow(
                 color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.padding(horizontal = 12.dp)
             )
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "MORE",
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 13.sp,
-                    color = Color.Gray,
-                    lineHeight = 0.sp
-                )
-                Image(
-                    modifier = Modifier.size(20.dp),
-                    painter = painterResource(Res.drawable.ic_arrow_right),
-                    contentDescription = Res.drawable.ic_arrow_right.toString(),
-                    colorFilter = ColorFilter.tint(Color.Gray)
-                )
-            }
         }
 
         LazyRow(

@@ -13,9 +13,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.riadmahi.movienow.ui.common.MovieNowButton
 import com.riadmahi.movienow.ui.screens.main.bookmarks.components.CreateBookmarkDialog
+import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.bookmarks_list_add_list
+import movienow.composeapp.generated.resources.bookmarks_list_empty
 import movienow.composeapp.generated.resources.illustration_bookmarks
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun BookmarksScreen() {
@@ -29,7 +33,7 @@ fun BookmarksScreen() {
     ) {
         Image(
             painter = painterResource(Res.drawable.illustration_bookmarks),
-            contentDescription = "Empty list illustration",
+            contentDescription = Res.drawable.illustration_bookmarks.toString(),
             modifier = Modifier.size(250.dp)
         )
 
@@ -44,20 +48,20 @@ fun BookmarksScreen() {
             ) {
 
                 Text(
-                    text = "Your bookmarks list is empty!",
+                    text = stringResource(Res.string.bookmarks_list_empty),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 18.sp
                 )
                 Text(
-                    text = "Start by adding your first one.",
+                    text = stringResource(Res.string.bookmarks_list_add_list),
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Normal,
                     fontSize = 15.sp,
                     color = Color.Gray
                 )
             }
-            MovieNowButton(text = "Create") {
+            MovieNowButton(text = stringResource(Res.string.button_create)) {
                 showDialog = true
             }
         }

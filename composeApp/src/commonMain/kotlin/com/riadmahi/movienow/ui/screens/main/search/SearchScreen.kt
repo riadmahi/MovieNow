@@ -29,6 +29,9 @@ import com.riadmahi.movienow.ui.common.MovieGrid
 import com.riadmahi.movienow.ui.main.search.SearchUiState
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
 import com.riadmahi.movienow.ui.screens.main.search.components.TrendingSection
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.search_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchScreen(
@@ -58,7 +61,7 @@ fun SearchScreen(
                 searchText = newValue
                 viewModel.searchMovies(newValue.text)
             },
-            placeholder = { Text("Search a movie") },
+            placeholder = { Text(stringResource(Res.string.search_placeholder)) },
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier
                 .fillMaxWidth()

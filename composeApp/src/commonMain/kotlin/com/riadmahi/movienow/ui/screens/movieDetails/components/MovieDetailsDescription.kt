@@ -11,6 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.movie_details_description
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -24,7 +27,11 @@ fun MovieDetailsDescription(
             .padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        Text("Synopsis", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+        Text(
+            stringResource(Res.string.movie_details_description),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold
+        )
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = description,

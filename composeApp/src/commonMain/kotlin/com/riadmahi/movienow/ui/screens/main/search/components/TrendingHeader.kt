@@ -13,7 +13,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.ic_trend_up
+import movienow.composeapp.generated.resources.search_trending
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -34,7 +36,7 @@ fun TrendingHeader() {
             colorFilter = ColorFilter.tint(Color.Gray)
         )
         Text(
-            text = "TRENDING",
+            text = stringResource(Res.string.search_trending),
             fontSize = 13.sp,
             color = Color.Gray
         )

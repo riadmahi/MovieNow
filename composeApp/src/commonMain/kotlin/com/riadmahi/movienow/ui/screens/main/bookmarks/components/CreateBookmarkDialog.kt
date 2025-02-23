@@ -21,6 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.riadmahi.movienow.ui.common.MovieNowButton
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.bookmarks_create_bookmark_list
+import movienow.composeapp.generated.resources.bookmarks_your_bookmark_list_name
+import movienow.composeapp.generated.resources.button_create
+import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
@@ -55,21 +60,21 @@ fun CreateBookmarkDialog(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Create Bookmark List",
+                        text = stringResource(Res.string.bookmarks_create_bookmark_list),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
                     )
                     IconButton(onClick = onDismiss) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Close"
+                            contentDescription = Icons.Default.Close.toString()
                         )
                     }
                 }
                 TextField(
                     listName,
                     onValueChange = { listName = it },
-                    placeholder = { Text("Your Bookmark List Name") },
+                    placeholder = { Text(stringResource(Res.string.bookmarks_your_bookmark_list_name)) },
                     shape = RoundedCornerShape(30.dp),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -83,7 +88,7 @@ fun CreateBookmarkDialog(
                     singleLine = true
                 )
                 MovieNowButton(
-                    text = "Create"
+                    text = stringResource(Res.string.button_create)
                 ) {
                     onCreate(listName)
                 }

@@ -12,6 +12,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.riadmahi.movienow.ui.common.MovieNowButton
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.button_add
+import movienow.composeapp.generated.resources.movie_details_rating_note
+import movienow.composeapp.generated.resources.movie_details_votes
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieDetailsRatingAndBookmark(
@@ -32,7 +37,7 @@ fun MovieDetailsRatingAndBookmark(
             numberRating= numberRating
         )
 
-        MovieNowButton(text = "+ Add")
+        MovieNowButton(text = stringResource(Res.string.button_add))
     }
 }
 
@@ -44,8 +49,12 @@ fun RatingScore(textScore: String, score: Float, numberRating: Int) {
             Text(textScore, fontWeight = FontWeight.Medium, fontSize = 15.sp)
         }
         Column{
-            Text("Rating note", fontWeight = FontWeight.Medium, fontSize = 15.sp)
-            Text("$numberRating votes", fontWeight = FontWeight.Normal, fontSize = 13.sp, color = Color.Gray)
+            Text(stringResource(Res.string.movie_details_rating_note), fontWeight = FontWeight.Medium, fontSize = 15.sp)
+            Text(
+                "$numberRating ${stringResource(Res.string.movie_details_votes)}",
+                fontWeight = FontWeight.Normal,
+                fontSize = 13.sp, color = Color.Gray
+            )
         }
     }
 }
