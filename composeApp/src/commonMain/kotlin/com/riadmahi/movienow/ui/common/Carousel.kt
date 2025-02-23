@@ -32,6 +32,9 @@ import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.Movie
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDate
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.movie_section_upcoming
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.absoluteValue
 
 /**
@@ -196,7 +199,7 @@ fun Carousel(
                 }
 
                 Text(
-                    "UPCOMING",
+                    stringResource(Res.string.movie_section_upcoming),
                     fontWeight = FontWeight.Normal,
                     fontSize = 15.sp,
                     modifier = Modifier
