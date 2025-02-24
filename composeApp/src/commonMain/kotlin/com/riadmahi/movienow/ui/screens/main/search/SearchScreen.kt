@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.data.model.Movie
+import com.riadmahi.movienow.ui.common.DefaultErrorScreen
 import com.riadmahi.movienow.ui.common.MovieGrid
 import com.riadmahi.movienow.ui.main.search.SearchUiState
 import com.riadmahi.movienow.ui.main.search.SearchViewModel
@@ -82,7 +83,12 @@ fun SearchScreen(
         )
         when (uiState) {
             is SearchUiState.Error -> {
-                Text(text = "Error: ${(uiState as SearchUiState.Error).errorMessage}")
+                DefaultErrorScreen(
+                    showRetry = true,
+                    retryClicked = {
+                        viewModel.searchMovies(searchText.text)
+                    }
+                )
             }
             SearchUiState.Loading -> {
                 Box(
@@ -108,7 +114,8 @@ fun SearchScreen(
                     onMovieClicked = {
                         searchText = TextFieldValue(it.title)
                         viewModel.searchMovies(it.title)
-                    }
+                    },
+                    onRetryClicked = { viewModel.fetchTrendingMovies() }
                 )
             }
         }

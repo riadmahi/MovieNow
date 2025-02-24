@@ -65,9 +65,7 @@ fun Carousel(
         }
 
         is MovieListState.Error -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Error: ${state.errorMessage}")
-            }
+            DefaultErrorScreen()
         }
 
         is MovieListState.Success -> {

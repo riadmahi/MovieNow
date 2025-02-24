@@ -20,7 +20,10 @@
     <string name="search_placeholder">Rechercher un film</string>
     <string name="search_trending">TENDANCES</string>
     <string name="search_empty_search">Aucun résultat trouvé.</string>
+    <string name="error_internal">Erreur interne</string>
+    <string name="error_internal_description">Vérifiez votre réseaux internet. Réessayez plus tard.</string>
     <string name="button_create">Créer</string>
     <string name="button_add">+ Ajouter</string>
-    <string name="button_delete">- Supprimer</string>    
+    <string name="button_delete">- Supprimer</string>
+    <string name="button_retry">Réessayer</string>
 </resources>

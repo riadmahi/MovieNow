@@ -18,8 +18,11 @@
     <string name="movie_details_votes">votes</string>
     <string name="search_placeholder">Search a movie</string>
     <string name="search_trending">TRENDING</string>
-    <string name="search_empty_search">No result found.</string>    
+    <string name="search_empty_search">No result found.</string>
+    <string name="error_internal">Internal error</string>
+    <string name="error_internal_description">Please check your network. Re-attempt later.</string>
     <string name="button_create">Create</string>
     <string name="button_add">+ Add</string>
     <string name="button_delete">- Delete</string>
+    <string name="button_retry">Retry</string>
 </resources>

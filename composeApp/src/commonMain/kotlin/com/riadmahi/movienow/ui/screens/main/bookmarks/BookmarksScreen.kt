@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.riadmahi.movienow.ui.common.DefaultErrorScreen
 import com.riadmahi.movienow.ui.common.MovieNowButton
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksUiState
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksViewModel
@@ -46,10 +47,7 @@ fun BookmarksScreen(
             }
 
             is BookmarksUiState.Error -> {
-                Text(
-                    text = "Error: ${(uiState as BookmarksUiState.Error).error}",
-                    modifier = Modifier.align(Alignment.Center)
-                )
+                DefaultErrorScreen()
             }
 
             is BookmarksUiState.Success -> {
@@ -115,7 +113,6 @@ fun BookmarksScreen(
                             }
                         }
                     }
-
                 }
             }
         }

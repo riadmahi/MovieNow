@@ -33,7 +33,7 @@ class MovieDetailsViewModel(
         fetchBookmarkLists()
     }
 
-    private fun fetchMovie() {
+    fun fetchMovie() {
         viewModelScope.launch {
             combine(
                 movieRepository.getMovie(movieId),

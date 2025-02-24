@@ -21,11 +21,11 @@ class SearchViewModel(private val movieRepository: MovieRepository): ViewModel()
         fetchTrendingMovies()
     }
 
-    private fun fetchTrendingMovies() {
+    fun fetchTrendingMovies() {
         viewModelScope.launch {
             movieRepository.getTrendingMovieList().collect { trendingResource ->
                 val trendingState = when (trendingResource) {
-                    is Resource.Loading ->MovieListState.Loading
+                    is Resource.Loading -> MovieListState.Loading
                     is Resource.Success -> MovieListState.Success(movies = trendingResource.data.results)
                     is Resource.Error -> MovieListState.Error(trendingResource.error ?: "Unknown error")
                 }
@@ -47,7 +47,7 @@ class SearchViewModel(private val movieRepository: MovieRepository): ViewModel()
                 val searchState = when (searchResource) {
                     is Resource.Loading -> MovieListState.Loading
                     is Resource.Success -> MovieListState.Success(movies = searchResource.data.results)
-                    is Resource.Error -> MovieListState.Error(searchResource.error ?: "Erreur inconnue")
+                    is Resource.Error -> MovieListState.Error(searchResource.error ?: "Unknown error")
                 }
                 _uiState.value = SearchUiState.Success(movieFoundListState = searchState)
             }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -14,10 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.data.model.Movie
-import com.riadmahi.movienow.ui.common.CardSize
-import com.riadmahi.movienow.ui.common.Carousel
-import com.riadmahi.movienow.ui.common.MovieListState
-import com.riadmahi.movienow.ui.common.MovieRow
+import com.riadmahi.movienow.ui.common.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_section_now_playing
 import movienow.composeapp.generated.resources.movie_section_popular
@@ -31,29 +27,46 @@ fun ExploreScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-            if (uiState is ExploreUiState.Content) {
-                item {
-                    Carousel(
-                        state = (uiState as ExploreUiState.Content).upcomingMovies,
-                        onMovieClick = { onNavigateToMovieDetails(it) }
-                    )
-                    MovieSection(
-                        state = (uiState as ExploreUiState.Content).popularMovies,
-                        title = stringResource(Res.string.movie_section_popular),
-                        cardSize = CardSize.Medium,
-                        onMovieClick = { onNavigateToMovieDetails(it) }
-                    )
-                    MovieSection(
-                        state = (uiState as ExploreUiState.Content).nowPlayingMovies,
-                        title = stringResource(Res.string.movie_section_now_playing),
-                        onMovieClick = { onNavigateToMovieDetails(it) }
-                    )
-                    MovieSection(
-                        state = (uiState as ExploreUiState.Content).topRatedMovies,
-                        title = stringResource(Res.string.movie_section_top_rated),
-                        onMovieClick = { onNavigateToMovieDetails(it) }
-                    )
+        when(uiState) {
+            is ExploreUiState.Content -> {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+                    item {
+                        Carousel(
+                            state = (uiState as ExploreUiState.Content).upcomingMovies,
+                            onMovieClick = { onNavigateToMovieDetails(it) }
+                        )
+                        MovieSection(
+                            state = (uiState as ExploreUiState.Content).popularMovies,
+                            title = stringResource(Res.string.movie_section_popular),
+                            cardSize = CardSize.Medium,
+                            onMovieClick = { onNavigateToMovieDetails(it) }
+                        )
+                        MovieSection(
+                            state = (uiState as ExploreUiState.Content).nowPlayingMovies,
+                            title = stringResource(Res.string.movie_section_now_playing),
+                            onMovieClick = { onNavigateToMovieDetails(it) }
+                        )
+                        MovieSection(
+                            state = (uiState as ExploreUiState.Content).topRatedMovies,
+                            title = stringResource(Res.string.movie_section_top_rated),
+                            onMovieClick = { onNavigateToMovieDetails(it) }
+                        )
+                    }
+                }
+            }
+            is ExploreUiState.Error -> {
+                DefaultErrorScreen(
+                    showRetry = true,
+                    retryClicked = { viewModel.fetchMovies() }
+                )
+            }
+            ExploreUiState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(50.dp))
                 }
             }
         }
@@ -95,7 +108,7 @@ fun MovieSection(
             }
         }
         is MovieListState.Error -> {
-            Text(text = "Error: ${state.errorMessage}")
+            DefaultErrorScreen()
         }
     }
 }

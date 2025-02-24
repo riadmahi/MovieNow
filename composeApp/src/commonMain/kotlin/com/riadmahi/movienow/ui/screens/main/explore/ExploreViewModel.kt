@@ -19,7 +19,7 @@ class ExploreViewModel(private val movieRepository: MovieRepository) : ViewModel
         fetchMovies()
     }
 
-    private fun fetchMovies() {
+    fun fetchMovies() {
         viewModelScope.launch {
             combine(
                 movieRepository.getPopularMovieList(),
@@ -51,12 +51,18 @@ class ExploreViewModel(private val movieRepository: MovieRepository) : ViewModel
                     is Resource.Success -> MovieListState.Success(movies = topRatedResource.data.results)
                     is Resource.Error -> MovieListState.Error(topRatedResource.error ?: "Unknown error")
                 }
-                ExploreUiState.Content(
-                    popularMovies = popularMoviesState,
-                    nowPlayingMovies = nowPlayingMoviesState,
-                    upcomingMovies = upcomingMoviesState,
-                    topRatedMovies = topRatedMoviesState
-                )
+
+                if(popularMoviesState is MovieListState.Error) {
+                    ExploreUiState.Error("Internal error")
+                } else {
+                    ExploreUiState.Content(
+                        popularMovies = popularMoviesState,
+                        nowPlayingMovies = nowPlayingMoviesState,
+                        upcomingMovies = upcomingMoviesState,
+                        topRatedMovies = topRatedMoviesState
+                    )
+                }
+
             }.collect { combinedContentState ->
                 _uiState.value = combinedContentState
             }
