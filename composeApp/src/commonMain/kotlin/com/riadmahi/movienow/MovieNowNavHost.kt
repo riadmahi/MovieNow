@@ -1,7 +1,10 @@
 package com.riadmahi.movienow
 
 import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,31 +42,8 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
             modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .safeDrawingPadding(),
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(500)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Left,
-                    animationSpec = tween(500)
-                )
-            },
-            popEnterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(500)
-                )
-            },
-            popExitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Right,
-                    animationSpec = tween(500)
-                )
-            }) {
+                    .safeDrawingPadding()
+        ) {
             composable(route = MovieNowBottomNavigation.Explore.route) {
                 val viewModel = viewModel<ExploreViewModel> { ExploreViewModel(movieRepository) }
                 ExploreScreen(
