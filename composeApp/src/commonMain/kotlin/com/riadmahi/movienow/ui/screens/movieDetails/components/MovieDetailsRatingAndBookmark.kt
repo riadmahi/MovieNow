@@ -12,6 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.riadmahi.movienow.ui.common.MovieNowButton
+import com.riadmahi.movienow.ui.screens.movieDetails.BookmarkButtonState
+import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.button_add
 import movienow.composeapp.generated.resources.movie_details_rating_note
@@ -22,7 +24,9 @@ import org.jetbrains.compose.resources.stringResource
 fun MovieDetailsRatingAndBookmark(
     numberRating: Int,
     score: Float,
-    textScore: String
+    textScore: String,
+    buttonState: BookmarkButtonState,
+    toggle: () -> Unit =  { }
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -37,7 +41,15 @@ fun MovieDetailsRatingAndBookmark(
             numberRating= numberRating
         )
 
-        MovieNowButton(text = stringResource(Res.string.button_add))
+        MovieNowButton(
+            text =
+                if(buttonState is BookmarkButtonState.Add)
+                    stringResource(Res.string.button_add)
+                else
+                    stringResource(Res.string.button_delete)
+        ) {
+            toggle()
+        }
     }
 }
 

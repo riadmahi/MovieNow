@@ -3,8 +3,7 @@ package com.riadmahi.movienow.ui.main.movieDetails
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -18,6 +17,7 @@ fun MovieDetailsScreen(
     navigateBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val buttonState by viewModel.bookmarkButtonState.collectAsStateWithLifecycle()
     Box(modifier = Modifier.fillMaxSize()) {
         when(uiState) {
             MovieDetailsUiState.Loading -> { CircularProgressIndicator(modifier = Modifier.size(50.dp)) }
@@ -37,7 +37,9 @@ fun MovieDetailsScreen(
                         MovieDetailsRatingAndBookmark(
                             numberRating = movieDetails.voteCount,
                             score = (movieDetails.voteAverage / 10).toFloat(),
-                            textScore = "${(movieDetails.voteAverage * 10).toInt()}%"
+                            textScore = "${(movieDetails.voteAverage * 10).toInt()}%",
+                            buttonState = buttonState,
+                            toggle = { viewModel.toggleBookmark() }
                         )
                         watchProviders?.let { MovieDetailsWatchProviders(watchProviders) }
                         movieDetails.overview?.let { MovieDetailsDescription(description = movieDetails.overview) }
