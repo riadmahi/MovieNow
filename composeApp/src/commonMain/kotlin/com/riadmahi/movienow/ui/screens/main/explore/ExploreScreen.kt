@@ -29,7 +29,10 @@ fun ExploreScreen(
     Box(modifier = Modifier.fillMaxSize()) {
         when(uiState) {
             is ExploreUiState.Content -> {
-                LazyColumn(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(bottom = 120.dp)
+                ) {
                     item {
                         Carousel(
                             state = (uiState as ExploreUiState.Content).upcomingMovies,
