@@ -1,9 +1,7 @@
 package com.riadmahi.movienow.data
 
-import com.riadmahi.movienow.data.model.MovieCredits
-import com.riadmahi.movienow.data.model.MovieDetails
-import com.riadmahi.movienow.data.model.MoviePage
-import com.riadmahi.movienow.data.model.MovieWatchProviders
+import com.riadmahi.movienow.data.model.*
+import com.riadmahi.movienow.data.model.local.BookmarkCrossRef
 import com.riadmahi.movienow.data.model.local.BookmarkList
 import com.riadmahi.movienow.data.model.local.BookmarkWithMovies
 import com.riadmahi.movienow.utils.Resource
@@ -64,17 +62,17 @@ class MovieRepository(
         emit(api.getMovieCredits(id = id))
     }.flowOn(Dispatchers.IO)
 
-    fun createBookmark(name: String): Flow<Resource<Long>> = flow {
+    fun addMovieToBookmark(movie: MoviePreview): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading)
-        emit(localDB.insertBookmark(BookmarkList(name = name)))
+        emit(localDB.insertMovie(movie))
     }.flowOn(Dispatchers.IO)
 
-    fun deleteBookmark(bookmark: BookmarkList): Flow<Resource<Unit>> = flow {
+    fun deleteMovieToBookmark(movie: MoviePreview): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading)
-        emit(localDB.deleteBookmark(bookmark))
+        emit(localDB.deleteMovie(movie))
     }.flowOn(Dispatchers.IO)
 
-    fun fetchBookmarks(): Flow<Resource<List<BookmarkWithMovies>>> = flow {
+    fun fetchBookmarks(): Flow<Resource<List<MoviePreview>>> = flow {
         emit(Resource.Loading)
         emit(localDB.getBookmarksWithMovies())
     }.flowOn(Dispatchers.IO)
