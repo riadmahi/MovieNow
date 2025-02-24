@@ -22,6 +22,7 @@ class SearchViewModel(private val movieRepository: MovieRepository): ViewModel()
     }
 
     fun fetchTrendingMovies() {
+        _uiState.value = SearchUiState.Loading
         viewModelScope.launch {
             movieRepository.getTrendingMovieList().collect { trendingResource ->
                 val trendingState = when (trendingResource) {

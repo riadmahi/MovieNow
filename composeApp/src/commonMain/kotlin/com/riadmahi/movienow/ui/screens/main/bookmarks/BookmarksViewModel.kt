@@ -17,6 +17,7 @@ class BookmarksViewModel(private val movieRepository: MovieRepository): ViewMode
     }
 
     private fun fetchBookmarks() {
+        _uiState.value = BookmarksUiState.Loading
         viewModelScope.launch {
             movieRepository.fetchBookmarks().collect { bookmarkList ->
                 _uiState.value = BookmarksUiState.Success(bookmarkList = bookmarkList)

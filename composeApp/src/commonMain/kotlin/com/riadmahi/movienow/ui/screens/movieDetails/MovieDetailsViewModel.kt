@@ -34,6 +34,7 @@ class MovieDetailsViewModel(
     }
 
     fun fetchMovie() {
+        _uiState.value = MovieDetailsUiState.Loading
         viewModelScope.launch {
             combine(
                 movieRepository.getMovie(movieId),

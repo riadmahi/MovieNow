@@ -20,6 +20,7 @@ class ExploreViewModel(private val movieRepository: MovieRepository) : ViewModel
     }
 
     fun fetchMovies() {
+        _uiState.value = ExploreUiState.Loading
         viewModelScope.launch {
             combine(
                 movieRepository.getPopularMovieList(),
