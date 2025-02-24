@@ -3,6 +3,7 @@ package com.riadmahi.movienow.data
 import com.riadmahi.movienow.data.database.MovieNowDatabase
 import com.riadmahi.movienow.data.model.MoviePreview
 import com.riadmahi.movienow.utils.Resource
+import kotlinx.coroutines.flow.Flow
 
 
 class LocalDB(database: MovieNowDatabase) {
@@ -14,8 +15,7 @@ class LocalDB(database: MovieNowDatabase) {
     suspend fun deleteMovie(movie: MoviePreview): Resource<Unit> =
         fetchLocalResource { dao.deleteMovie(movie) }
 
-    suspend fun getBookmarksWithMovies(): Resource<List<MoviePreview>> =
-        fetchLocalResource { dao.getAllMovies() }
+    fun getAllBookmarksMovie(): Flow<List<MoviePreview>> = dao.getAllMoviesAsFlow()
 
     private inline fun <T> fetchLocalResource(block: () -> T): Resource<T> {
         return try {

@@ -1,8 +1,9 @@
 package com.riadmahi.movienow.data.database.dao
 
 import androidx.room.*
-import com.riadmahi.movienow.data.model.Movie
+
 import com.riadmahi.movienow.data.model.MoviePreview
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {
@@ -14,5 +15,5 @@ interface BookmarkDao {
     suspend fun deleteMovie(movie: MoviePreview)
 
     @Query("SELECT * FROM movie_preview")
-    suspend fun getAllMovies(): List<MoviePreview>
+    fun getAllMoviesAsFlow(): Flow<List<MoviePreview>>
 }
