@@ -67,7 +67,7 @@ class MovieRepository(
         emit(localDB.insertMovie(movie))
     }.flowOn(Dispatchers.IO)
 
-    fun deleteMovieToBookmark(movie: MoviePreview): Flow<Resource<Unit>> = flow {
+    fun deleteMovieFromBookmark(movie: MoviePreview): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading)
         emit(localDB.deleteMovie(movie))
     }.flowOn(Dispatchers.IO)
