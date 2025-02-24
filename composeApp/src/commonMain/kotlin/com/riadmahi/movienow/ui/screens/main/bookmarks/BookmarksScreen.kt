@@ -1,15 +1,11 @@
 package com.riadmahi.movienow.ui.main.explore
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.riadmahi.movienow.ui.common.DefaultErrorScreen
-import com.riadmahi.movienow.ui.common.MovieNowButton
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksUiState
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksViewModel
 import com.riadmahi.movienow.ui.screens.main.bookmarks.components.BookmarkMovie

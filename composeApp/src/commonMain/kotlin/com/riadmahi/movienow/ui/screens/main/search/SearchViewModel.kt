@@ -8,7 +8,6 @@ import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
 
 class SearchViewModel(private val movieRepository: MovieRepository): ViewModel() {
 
