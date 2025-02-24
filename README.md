@@ -1,3 +1,5 @@
+![Movie now banner](docs/images/MovieNowBanner.png)
+
 # MovieNow 🍿
 
 MovieNow is a Kotlin Compose Multiplatform project that lets you discover and explore movies using TheMovieDB API. This project was created to fully harness the power of Kotlin while also learning together.
