@@ -50,7 +50,7 @@ fun SearchScreen(
             .fillMaxSize()
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
-                    focusManager.clearFocus() // Unfocus text field when clicking outside
+                    focusManager.clearFocus()
                 })
             },
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -96,7 +96,10 @@ fun SearchScreen(
             is SearchUiState.Success -> {
                 MovieGrid(
                     movieListState = (uiState as SearchUiState.Success).movieFoundListState,
-                    onMovieClick = { onNavigateToMovieDetails(it) }
+                    onMovieClick = { onNavigateToMovieDetails(it) },
+                    onScroll = {
+                        focusManager.clearFocus()
+                    }
                 )
             }
             is SearchUiState.Trending -> {
