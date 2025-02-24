@@ -72,8 +72,13 @@ fun Carousel(
             val movies = state.movies
             val pagerState = rememberPagerState(pageCount = { movies.size })
             LaunchedEffect(pagerState) {
+                if (pagerState.currentPageOffsetFraction != 0f) {
+                    pagerState.scrollToPage(pagerState.currentPage)
+                }
+
                 while (true) {
                     delay(5000L)
+                    if (pagerState.isScrollInProgress) continue
                     val nextPage = (pagerState.currentPage + 1) % movies.size
                     pagerState.animateScrollToPage(
                         nextPage,
