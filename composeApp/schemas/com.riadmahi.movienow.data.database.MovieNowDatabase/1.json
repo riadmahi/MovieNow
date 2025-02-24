@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "72557178a0459b691062adca553b6d8c",
+    "identityHash": "ca8680374fa496299102366c537e2e44",
     "entities": [
       {
         "tableName": "movie_preview",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `posterPath` TEXT, `bookmarkListId` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`bookmarkListId`) REFERENCES `bookmark_list`(`listId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `posterPath` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -24,11 +24,6 @@
             "fieldPath": "posterPath",
             "columnName": "posterPath",
             "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "bookmarkListId",
-            "columnName": "bookmarkListId",
-            "affinity": "INTEGER"
           }
         ],
         "primaryKey": {
@@ -36,60 +31,12 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [
-          {
-            "name": "index_movie_preview_bookmarkListId",
-            "unique": false,
-            "columnNames": [
-              "bookmarkListId"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_movie_preview_bookmarkListId` ON `${TABLE_NAME}` (`bookmarkListId`)"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "table": "bookmark_list",
-            "onDelete": "CASCADE",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "bookmarkListId"
-            ],
-            "referencedColumns": [
-              "listId"
-            ]
-          }
-        ]
-      },
-      {
-        "tableName": "bookmark_list",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`listId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "listId",
-            "columnName": "listId",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": true,
-          "columnNames": [
-            "listId"
-          ]
         }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '72557178a0459b691062adca553b6d8c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca8680374fa496299102366c537e2e44')"
     ]
   }
 }

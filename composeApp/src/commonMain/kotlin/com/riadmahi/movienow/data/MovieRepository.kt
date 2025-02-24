@@ -1,9 +1,6 @@
 package com.riadmahi.movienow.data
 
 import com.riadmahi.movienow.data.model.*
-import com.riadmahi.movienow.data.model.local.BookmarkCrossRef
-import com.riadmahi.movienow.data.model.local.BookmarkList
-import com.riadmahi.movienow.data.model.local.BookmarkWithMovies
 import com.riadmahi.movienow.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -72,8 +69,5 @@ class MovieRepository(
         emit(localDB.deleteMovie(movie))
     }.flowOn(Dispatchers.IO)
 
-    fun fetchBookmarks(): Flow<Resource<List<MoviePreview>>> = flow {
-        emit(Resource.Loading)
-        emit(localDB.getBookmarksWithMovies())
-    }.flowOn(Dispatchers.IO)
+    fun fetchBookmarks(): Flow<List<MoviePreview>> = localDB.getAllBookmarksMovie().flowOn(Dispatchers.IO)
 }
