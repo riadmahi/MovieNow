@@ -9,7 +9,7 @@ import com.riadmahi.movienow.data.model.MoviePreview
 
 @Database(
     entities = [MoviePreview::class],
-    version = 2
+    version = 1
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class MovieNowDatabase: RoomDatabase() {
@@ -22,4 +22,4 @@ expect object AppDatabaseConstructor : RoomDatabaseConstructor<MovieNowDatabase>
     override fun initialize(): MovieNowDatabase
 }
 
-internal const val dbFileName = "movie_now_local.db"
+internal const val dbFileName = "local_movie_now.db"
