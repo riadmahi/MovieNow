@@ -20,4 +20,5 @@
     <string name="search_trending">TRENDING</string>    
     <string name="button_create">Create</string>
     <string name="button_add">+ Add</string>
+    <string name="button_delete">- Delete</string>
 </resources>
