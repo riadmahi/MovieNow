@@ -1,12 +1,13 @@
 package com.riadmahi.movienow.ui.main.movieDetails.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.CastMember
 import com.riadmahi.movienow.ui.common.CardSize
+import com.riadmahi.movienow.utils.shimmerBrush
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_details_casting
 import movienow.composeapp.generated.resources.movie_details_casting_photo_desc
@@ -50,6 +52,8 @@ fun MovieDetailsCasting(casting: List<CastMember>) {
 
 @Composable
 fun CastingCard(castMember: CastMember) {
+    var showShimmer by remember { mutableStateOf(true) }
+
     Column(
         modifier = Modifier.size(width = CardSize.Small.width, height = 240.dp)
     ) {
@@ -58,10 +62,13 @@ fun CastingCard(castMember: CastMember) {
             shape = RoundedCornerShape(8.dp)
         ) {
             AsyncImage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(shimmerBrush(targetValue = 1300f, showShimmer = showShimmer)),
                 model = "https://image.tmdb.org/t/p/original/${castMember.profilePath}",
                 contentDescription = stringResource(Res.string.movie_details_casting_photo_desc),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                onSuccess = { showShimmer = false }
             )
         }
         Text(
