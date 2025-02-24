@@ -34,7 +34,6 @@ class SearchViewModel(private val movieRepository: MovieRepository): ViewModel()
         }
     }
 
-    @OptIn(FlowPreview::class)
     fun searchMovies(query: String) {
         searchJob?.cancel()
         if (query.isBlank()) {
@@ -42,7 +41,9 @@ class SearchViewModel(private val movieRepository: MovieRepository): ViewModel()
             return
         }
         searchJob = viewModelScope.launch {
-            movieRepository.getSearchMovieList(query).debounce(500).collect { searchResource ->
+            _uiState.value = SearchUiState.Loading
+            delay(900)
+            movieRepository.getSearchMovieList(query).collect { searchResource ->
                 val searchState = when (searchResource) {
                     is Resource.Loading -> MovieListState.Loading
                     is Resource.Success -> MovieListState.Success(movies = searchResource.data.results)
