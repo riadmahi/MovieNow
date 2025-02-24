@@ -90,7 +90,12 @@ fun MovieNowNavHost(navController: NavHostController, movieRepository: MovieRepo
                 val viewModel = viewModel<BookmarksViewModel> {
                     BookmarksViewModel(movieRepository = movieRepository)
                 }
-                BookmarksScreen(viewModel)
+                BookmarksScreen(
+                    viewModel = viewModel,
+                    onNavigateToMovieDetails = { movieId ->
+                        navController.navigate("${MovieNowDestination.MovieDetails.route}/${movieId}")
+                    }
+                )
             }
 
             composable(

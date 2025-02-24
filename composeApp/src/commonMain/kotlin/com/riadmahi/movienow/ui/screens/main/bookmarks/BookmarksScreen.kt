@@ -33,7 +33,10 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun BookmarksScreen(viewModel: BookmarksViewModel) {
+fun BookmarksScreen(
+    viewModel: BookmarksViewModel,
+    onNavigateToMovieDetails: (String) -> Unit
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -106,7 +109,9 @@ fun BookmarksScreen(viewModel: BookmarksViewModel) {
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             items(movies) { movie ->
-                                BookmarkMovie(movie)
+                                BookmarkMovie(movie) {
+                                    onNavigateToMovieDetails(movie.id.toString())
+                                }
                             }
                         }
                     }
