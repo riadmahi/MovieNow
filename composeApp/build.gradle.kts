@@ -49,6 +49,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.androidx.room.paging)
         }
 
         commonMain.dependencies {
@@ -73,8 +74,8 @@ kotlin {
             implementation(libs.coil.network.ktor2)
             implementation(libs.coil.network.ktor3)
             implementation(libs.kotlinx.datetime)
-            implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
+            implementation(libs.androidx.room.runtime)
         }
 
         iosMain.dependencies {
