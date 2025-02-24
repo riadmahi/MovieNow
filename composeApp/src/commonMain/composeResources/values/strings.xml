@@ -17,7 +17,8 @@
     <string name="movie_details_rating_note">Rating note</string>
     <string name="movie_details_votes">votes</string>
     <string name="search_placeholder">Search a movie</string>
-    <string name="search_trending">TRENDING</string>    
+    <string name="search_trending">TRENDING</string>
+    <string name="search_empty_search">No result found.</string>    
     <string name="button_create">Create</string>
     <string name="button_add">+ Add</string>
     <string name="button_delete">- Delete</string>

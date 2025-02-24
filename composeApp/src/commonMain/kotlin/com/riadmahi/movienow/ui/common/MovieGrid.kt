@@ -19,6 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.riadmahi.movienow.data.model.Movie
 import kotlinx.coroutines.flow.distinctUntilChanged
+import movienow.composeapp.generated.resources.Res
+import movienow.composeapp.generated.resources.search_empty_search
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MovieGrid(
@@ -30,6 +33,7 @@ fun MovieGrid(
         is MovieListState.Error -> {
             Text(text = "Erreur : ${movieListState.errorMessage}")
         }
+
         MovieListState.Loading -> {
             Box(
                 modifier = Modifier
@@ -39,52 +43,58 @@ fun MovieGrid(
                 CircularProgressIndicator(modifier = Modifier.size(50.dp))
             }
         }
+
         is MovieListState.Success -> {
-            val lazyGridState = rememberLazyGridState()
-
-            LaunchedEffect(lazyGridState) {
-                snapshotFlow { lazyGridState.isScrollInProgress }
-                    .distinctUntilChanged()
-                    .collect { isScrolling ->
-                        if (isScrolling) {
-                            onScroll()
-                        }
-                    }
-            }
-
-            Box(modifier = Modifier.fillMaxSize()) {
-                Canvas(
-                    modifier = Modifier.fillMaxWidth().height(25.dp).zIndex(1f).align(Alignment.TopCenter),
-                    onDraw = {
-                        drawRect(
-                            Brush.verticalGradient(listOf(Color.Black, Color.Transparent))
-                        )
-                    }
+            if (movieListState.movies.isEmpty()) {
+                ErrorMessage(
+                    title = stringResource(Res.string.search_empty_search)
                 )
+            } else {
+                val lazyGridState = rememberLazyGridState()
 
-                LazyVerticalGrid(
-                    state = lazyGridState,
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    contentPadding = PaddingValues(vertical = 25.dp)
-                ) {
-                    items(movieListState.movies) { movie ->
-                        MovieCard(movie = movie, onClick = { onMovieClick(movie) })
-                    }
+                LaunchedEffect(lazyGridState) {
+                    snapshotFlow { lazyGridState.isScrollInProgress }
+                        .distinctUntilChanged()
+                        .collect { isScrolling ->
+                            if (isScrolling) {
+                                onScroll()
+                            }
+                        }
                 }
 
-                Canvas(
-                    modifier = Modifier.fillMaxWidth().height(25.dp).align(Alignment.BottomCenter),
-                    onDraw = {
-                        drawRect(
-                            Brush.verticalGradient(listOf(Color.Transparent, Color.Black))
-                        )
-                    }
-                )
-            }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Canvas(
+                        modifier = Modifier.fillMaxWidth().height(25.dp).zIndex(1f).align(Alignment.TopCenter),
+                        onDraw = {
+                            drawRect(
+                                Brush.verticalGradient(listOf(Color.Black, Color.Transparent))
+                            )
+                        }
+                    )
 
+                    LazyVerticalGrid(
+                        state = lazyGridState,
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize().padding(horizontal = 12.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        contentPadding = PaddingValues(vertical = 25.dp)
+                    ) {
+                        items(movieListState.movies) { movie ->
+                            MovieCard(movie = movie, onClick = { onMovieClick(movie) })
+                        }
+                    }
+
+                    Canvas(
+                        modifier = Modifier.fillMaxWidth().height(25.dp).align(Alignment.BottomCenter),
+                        onDraw = {
+                            drawRect(
+                                Brush.verticalGradient(listOf(Color.Transparent, Color.Black))
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
 }
