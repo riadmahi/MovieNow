@@ -45,7 +45,7 @@ fun MovieDetailsScreen(
                 val watchProviders = (uiState as MovieDetailsUiState.Content).watchProviders
                 val casting = (uiState as MovieDetailsUiState.Content).casting
 
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = 120.dp)) {
                     item {
                         MovieDetailsHeader(
                             title = movieDetails.title,
