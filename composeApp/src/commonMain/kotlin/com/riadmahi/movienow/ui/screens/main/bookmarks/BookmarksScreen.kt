@@ -10,9 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,11 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.riadmahi.movienow.data.model.local.BookmarkWithMovies
 import com.riadmahi.movienow.ui.common.MovieNowButton
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksUiState
 import com.riadmahi.movienow.ui.screens.main.bookmarks.BookmarksViewModel
-import com.riadmahi.movienow.ui.screens.main.bookmarks.components.CreateBookmarkDialog
+import com.riadmahi.movienow.ui.screens.main.bookmarks.components.BookmarkMovie
 import movienow.composeapp.generated.resources.*
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.bookmarks_list_add_list
@@ -39,23 +35,23 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun BookmarksScreen(viewModel: BookmarksViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var showDialog by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         when (uiState) {
             is BookmarksUiState.Loading -> {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
+
             is BookmarksUiState.Error -> {
                 Text(
                     text = "Error: ${(uiState as BookmarksUiState.Error).error}",
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
+
             is BookmarksUiState.Success -> {
-                val bookmarks = (uiState as BookmarksUiState.Success).bookmarksLists
-                if (bookmarks.isEmpty()) {
-                    // Affichage de l'écran vide
+                val movies = (uiState as BookmarksUiState.Success).bookmarkList
+                if (movies.isEmpty()) {
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -87,17 +83,13 @@ fun BookmarksScreen(viewModel: BookmarksViewModel) {
                                 color = Color.Gray
                             )
                         }
-                        Spacer(modifier = Modifier.height(24.dp))
-                        MovieNowButton(text = stringResource(Res.string.button_create)) {
-                            showDialog = true
-                        }
                     }
                 } else {
                     Column {
                         Row(
                             modifier = Modifier.fillMaxWidth().height(50.dp).padding(horizontal = 12.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.Start
                         ) {
                             Text(
                                 text = stringResource(Res.string.bookmarks_list),
@@ -105,83 +97,20 @@ fun BookmarksScreen(viewModel: BookmarksViewModel) {
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier.weight(1f)
                             )
-                            Icon(
-                                imageVector = Icons.Default.Add,
-                                contentDescription = "Add",
-                                modifier = Modifier.clickable {
-                                    showDialog = true
-                                }
-                            )
                         }
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(12.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(Color(0xFF12070D)),
+                                .clip(RoundedCornerShape(12.dp)),
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-                            items(bookmarks) { bookmarkWithMovies ->
-                                BookmarkAccordion(bookmarkWithMovies = bookmarkWithMovies)
+                            items(movies) { movie ->
+                                BookmarkMovie(movie)
                             }
                         }
                     }
 
-                }
-            }
-        }
-        if (showDialog) {
-            CreateBookmarkDialog(
-                onDismiss = { showDialog = false },
-                onCreate = { listName ->
-                    viewModel.createBookmark(listName)
-                    showDialog = false
-                }
-            )
-        }
-    }
-}
-
-
-
-@Composable
-fun BookmarkAccordion(bookmarkWithMovies: BookmarkWithMovies) {
-    var expanded by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { expanded = !expanded }
-            .padding(8.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = bookmarkWithMovies.bookmark.name,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.weight(1f)
-            )
-            Icon(
-                imageVector = if (expanded) Icons.Default.Clear else Icons.Default.ArrowDropDown,
-                contentDescription = if (expanded) "Reduce" else "More"
-            )
-        }
-        if (expanded) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp)
-            ) {
-                bookmarkWithMovies.movies.forEach { movie ->
-                    Text(
-                        text = movie.title,
-                        fontSize = 13.sp,
-                        modifier = Modifier.padding(vertical = 2.dp)
-                    )
                 }
             }
         }
