@@ -31,7 +31,10 @@ fun MovieGrid(
 ) {
     when (movieListState) {
         is MovieListState.Error -> {
-            Text(text = "Erreur : ${movieListState.errorMessage}")
+            ErrorMessage(
+                title = stringResource(Res.string.search_empty_search),
+                description = null
+            )
         }
 
         MovieListState.Loading -> {
