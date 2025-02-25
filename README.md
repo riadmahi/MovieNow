@@ -9,14 +9,14 @@ MovieNow is a Kotlin Compose Multiplatform project that lets you discover and ex
 1. [Features](#features)
 2. [Prerequisites](#prerequisites)
 3. [Installation and Setup](#installation-and-setup)
-4. [Using BuildKConfig](#using-kconfig)
+4. [Using BuildKConfig](#using-buildkconfig)
 5. [Contributing](#contributing)
 6. [License](#license)
 
 ## Features
 
 - **Multiplatform:** Target Android, iOS with Kotlin Compose Multiplatform.
-- **TheMovieDB Integration:** Retrieve and display popular, top-rated, and other movie categories.
+- **TheMovieDB Integration:** : Access and display popular, top-rated, and other movie categories. Easily search for and bookmark your favorite movies.
 - **Centralized Configuration:** Manage your configuration and API keys with BuildKConfig.
 - **Modern UI:** Built with Kotlin Compose for a sleek and responsive interface.
 
