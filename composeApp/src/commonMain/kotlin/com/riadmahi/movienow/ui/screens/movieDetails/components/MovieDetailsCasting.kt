@@ -1,6 +1,5 @@
 package com.riadmahi.movienow.ui.main.movieDetails.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -10,18 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil3.compose.AsyncImage
 import com.riadmahi.movienow.data.model.CastMember
+import com.riadmahi.movienow.ui.common.AsyncTmdbImage
 import com.riadmahi.movienow.ui.common.CardSize
-import com.riadmahi.movienow.utils.shimmerBrush
 import movienow.composeapp.generated.resources.Res
 import movienow.composeapp.generated.resources.movie_details_casting
-import movienow.composeapp.generated.resources.movie_details_casting_photo_desc
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -61,15 +57,10 @@ fun CastingCard(castMember: CastMember) {
             modifier = Modifier.size(CardSize.Small.width, CardSize.Small.height),
             shape = RoundedCornerShape(8.dp)
         ) {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(shimmerBrush(targetValue = 1300f, showShimmer = showShimmer)),
-                model = "https://image.tmdb.org/t/p/original/${castMember.profilePath}",
-                contentDescription = stringResource(Res.string.movie_details_casting_photo_desc),
-                contentScale = ContentScale.Crop,
-                onSuccess = { showShimmer = false }
-            )
+          AsyncTmdbImage(
+              modifier = Modifier.fillMaxSize(),
+              posterPath = castMember.profilePath
+          )
         }
         Text(
             modifier = Modifier.padding(top = 6.dp),

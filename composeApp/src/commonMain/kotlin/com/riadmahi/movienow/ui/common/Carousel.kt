@@ -161,14 +161,12 @@ fun Carousel(
                                 shape = RoundedCornerShape(12.dp),
                                 elevation = 0.dp
                             ) {
-                                AsyncImage(
+                                AsyncTmdbImage(
                                     modifier = Modifier.fillMaxSize(),
-                                    model = "https://image.tmdb.org/t/p/original/${movies[page].posterPath}",
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop
+                                    posterPath = movies[page].posterPath
                                 )
                             }
-                            // Text info (title and release year)
+
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 modifier = Modifier

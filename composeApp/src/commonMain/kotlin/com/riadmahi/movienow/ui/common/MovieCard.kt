@@ -29,7 +29,6 @@ fun MovieCard(
     textAlign: TextAlign = TextAlign.Center,
     onClick: () -> Unit = { }
 ) {
-    var showShimmer by remember { mutableStateOf(true) }
 
     Column(
         modifier = Modifier.width(cardSize.width)
@@ -42,16 +41,9 @@ fun MovieCard(
             modifier = Modifier.size(cardSize.width, cardSize.height),
             shape = RoundedCornerShape(cornerRadius)
         ) {
-            AsyncImage(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        shimmerBrush(targetValue = 1300f, showShimmer = showShimmer)
-                    ),
-                model = "https://image.tmdb.org/t/p/original/${movie.posterPath}",
-                contentDescription = "Movie thumbnail",
-                contentScale = ContentScale.Crop,
-                onSuccess = { showShimmer = false }
+            AsyncTmdbImage(
+                modifier = Modifier.fillMaxSize(),
+                posterPath = movie.posterPath
             )
         }
         Column {
